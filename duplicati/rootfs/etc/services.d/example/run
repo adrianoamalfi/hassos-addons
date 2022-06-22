@@ -16,4 +16,5 @@ message=$(bashio::config 'message')
 bashio::log.info "${message:="Hello World..."}"
 
 ## Run your program
-exec /usr/bin/my_program
+bashio::log.info "Service Start /usr/bin/run_duplicati"
+exec /usr/bin/run_duplicati
