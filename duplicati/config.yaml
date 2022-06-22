@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Duplicati add-on
-version: "1.0.1"
+version: "1.0.2"
 slug: duplicati
 description: Duplicati add-on
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
