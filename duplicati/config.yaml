@@ -7,7 +7,7 @@ url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
 arch:
   #- armhf
   #- armv7
-  - aarch64
+  #- aarch64
   - amd64
   #- i386
 init: false
