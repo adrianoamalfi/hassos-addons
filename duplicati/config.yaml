@@ -10,9 +10,18 @@ arch:
   #- aarch64
   - amd64
   #- i386
+ingress: true
+ingress_port: 8200
+panel_icon: mdi:home-assistant
+startup: services
 init: false
 map:
+  - config:rw
+  - ssl:rw
+  - addons:rw
+  - media:rw
   - share:rw
+  - backup:rw
 options:
   message: "Hello world..."
 schema:
