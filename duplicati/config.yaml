@@ -17,4 +17,4 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
-#image: "ghcr.io/adrianoamalfi/{arch}-addon-example"
+image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
