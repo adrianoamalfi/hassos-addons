@@ -1,7 +1,5 @@
 #!/usr/bin/env bashio
 
-USER=root
-
 mkdir -p \
 	/addons/duplicati/scripts
 
@@ -16,8 +14,7 @@ cd /app/duplicati || exit
 
 bashio::log.info "Starting Duplicati..."
 
-exec s6-setuidgid ${USER:-abc} \
-	mono Duplicati.Server.exe \
+exec mono Duplicati.Server.exe \
 	--webservice-interface=any \
 	--server-datafolder=/addons/duplicati \
 	--webservice-allowed-hostnames=*
