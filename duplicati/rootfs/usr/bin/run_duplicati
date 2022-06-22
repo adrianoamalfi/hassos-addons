@@ -8,7 +8,7 @@ mkdir -p \
 # update certs for mono
 if [[ ! -f "/app/duplicati/donecerts" ]]; then
     bashio::log.info "*** Running mono cert sync ***"
-	cert-sync --quiet /etc/ssl/certs/ca-certificates.crt
+	# cert-sync --quiet /etc/ssl/certs/ca-certificates.crt
 	touch "/app/duplicati/donecerts"
 fi
 
