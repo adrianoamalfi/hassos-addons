@@ -1,5 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 
-echo "All done!" > /share/example_addon_output.txt
+USER=root
 
-bashio::log.info "Service /usr/bin/run_duplicati RUN OK"
+mkdir -p \
+	/addons/duplicati/scripts
+
+# update certs for mono
+if [[ ! -f "/app/duplicati/donecerts" ]]; then
+    bashio::log.info "*** Running mono cert sync ***"
+	cert-sync --quiet /etc/ssl/certs/ca-certificates.crt
+	touch "/app/duplicati/donecerts"
+fi
+
+cd /app/duplicati || exit
+
+bashio::log.info "Starting Duplicati..."
+
+exec s6-setuidgid ${USER:-abc} \
+	mono Duplicati.Server.exe \
+	--webservice-interface=any \
+	--server-datafolder=/addons/duplicati \
+	--webservice-allowed-hostnames=*

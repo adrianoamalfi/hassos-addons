@@ -9,7 +9,7 @@ arch:
   #- armv7
   #- aarch64
   - amd64
-  - i386
+  #- i386
 ingress: true
 ingress_port: 8200
 panel_icon: mdi:home-assistant

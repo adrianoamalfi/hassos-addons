@@ -1,0 +1,4 @@
+configuration:
+  message:
+    name: Messaggio
+    description: il messaggio che sarà visualizzato nel log nell'addon.
