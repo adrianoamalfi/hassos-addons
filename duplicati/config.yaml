@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Duplicati add-on
-version: "0.0.1"
+version: "1.0.1"
 slug: duplicati
 description: Duplicati add-on
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
@@ -9,7 +9,7 @@ arch:
   #- armv7
   #- aarch64
   - amd64
-  #- i386
+  - i386
 ingress: true
 ingress_port: 8200
 panel_icon: mdi:home-assistant
