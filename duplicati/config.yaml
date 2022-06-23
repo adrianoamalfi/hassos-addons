@@ -31,4 +31,4 @@ schema:
   webserviceinterface: "str?"
   webserviceallowedhostnames: "str?"
   serverdatafolder: "str?"
-#image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
+image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
