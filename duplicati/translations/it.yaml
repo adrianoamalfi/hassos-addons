@@ -1,4 +1,7 @@
 configuration:
-  message:
-    name: Messaggio
-    description: il messaggio che sarà visualizzato nel log nell'addon.
+  serverdatafolder:
+    name: server-datafolder
+    description: Duplicati salva un piccolo database. Usa questa parametro per scegliere la cartella dove salvare le impostazioni.
+  loglevel:
+    name: log-level
+    description: Quantità di informazioni scritte nei log.

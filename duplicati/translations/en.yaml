@@ -1,4 +1,7 @@
 configuration:
-  message:
-    name: Message
-    description: The message that will be printed to the log when starting this example add-on.
+  serverdatafolder:
+    name: server-datafolder
+    description: Duplicati needs to store a small database with all settings. Use this option to choose where the settings are stored.
+  loglevel:
+    name: log-level
+    description: Determines the amount of information written in the log file.
