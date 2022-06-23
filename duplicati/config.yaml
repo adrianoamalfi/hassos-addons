@@ -1,29 +1,34 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Duplicati add-on
-version: "1.0.2"
+version: "1.0.3"
 slug: duplicati
 description: Duplicati add-on
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
 arch:
   - armhf
   - armv7
-  #- aarch64
   - amd64
-  #- i386
 ingress: true
 ingress_port: 8200
-panel_icon: mdi:home-assistant
+panel_icon: mdi:backup-restore
 startup: services
 init: false
+backup_exclude: ["/backup"]
+
 map:
-  - config:rw
-  - ssl:rw
+  - config:ro
+  - ssl:ro
+  - media:ro
   - addons:rw
-  - media:rw
   - share:rw
   - backup:rw
+
 options:
-  message: "Hello world..."
+  webserviceinterface: "any"
+  webserviceallowedhostnames: "*"
+  serverdatafolder: "/addons/duplicati"
 schema:
-  message: "str?"
-image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
+  webserviceinterface: "str?"
+  webserviceallowedhostnames: "str?"
+  serverdatafolder: "str?"
+#image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
