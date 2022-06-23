@@ -9,15 +9,11 @@
 # declare webserviceinterface, webserviceallowedhostname, serverdatafolder,
 
 ## Get the 'message' key from the user config options.
-webserviceinterface=$(bashio::config 'webserviceinterface')
-webserviceallowedhostname=$(bashio::config 'webserviceallowedhostname')
 serverdatafolder=$(bashio::config 'serverdatafolder')
 
 ## Print the message the user supplied, defaults to "Hello World..."
 # bashio::log.info "${message:="Hello World..."}"
 
-bashio::log.info "${webserviceinterface:="webserviceinterface"}"
-bashio::log.info "${webserviceallowedhostname:="webserviceallowedhostname"}"
 bashio::log.info "${serverdatafolder:="serverdatafolder"}"
 
 ## Run your program

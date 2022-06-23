@@ -1,8 +1,8 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Duplicati add-on
-version: "1.0.3"
+version: "0.1.0"
 slug: duplicati
-description: Duplicati add-on
+description: Store securely encrypted backups on cloud storage services!
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
 arch:
   - armhf
@@ -24,11 +24,7 @@ map:
   - backup:rw
 
 options:
-  webserviceinterface: "any"
-  webserviceallowedhostnames: "*"
   serverdatafolder: "/addons/duplicati"
 schema:
-  webserviceinterface: "str?"
-  webserviceallowedhostnames: "str?"
   serverdatafolder: "str?"
 image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
