@@ -22,4 +22,4 @@ map:
   - addons:rw
   - share:rw
   - backup:rw
-#image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
+image: "ghcr.io/adrianoamalfi/{arch}-addon-duplicati"
