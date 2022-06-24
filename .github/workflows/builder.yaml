@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
-        arch: ["amd64", "armhf", "armv7"]
+        arch: ["amd64", "armhf", "armv7", "aarch64", "i386"]
 
     steps:
       - name: Check out repository

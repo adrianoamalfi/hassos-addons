@@ -8,6 +8,8 @@ arch:
   - armhf
   - armv7
   - amd64
+  - i386
+  - aarch64
 ingress: true
 ingress_port: 8200
 panel_icon: mdi:backup-restore
@@ -16,9 +18,9 @@ init: false
 backup_exclude: ["/backup"]
 
 map:
-  - config:ro
-  - ssl:ro
-  - media:ro
+  - config:rw
+  - ssl:rw
+  - media:rw
   - addons:rw
   - share:rw
   - backup:rw

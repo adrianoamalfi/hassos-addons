@@ -2,8 +2,10 @@
 
 ## 0.1.2
 
-- Debian Base Image 6.0.0
-- Mono Version 6.12.0.182
+- 🖥️ Add aarch64, i386 compatibility
+- 🖥️ Debian Base Image 6.0.0
+- 🧑‍💻Mono Version 6.12.0.182
+- ✔️Add read-write on Hassio folder for restore operations
 
 ## 0.1.1
 
