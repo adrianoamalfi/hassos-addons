@@ -5,10 +5,6 @@
 [![Builder](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml/badge.svg?branch=main)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml)
 [![Lint](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml/badge.svg)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml)
 
-![GitHub issues](https://img.shields.io/github/issues/adrianoamalfi/hassos-addons)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/adrianoamalfi)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/adrianoamalfi/hassos-addons/main)
-
 ![Supports amd64 Architecture][amd64-shield]
 ![Supports armhf Architecture][armhf-shield]
 ![Supports armv7 Architecture][armv7-shield]
@@ -56,8 +52,7 @@ Thank you for being involved! :heart_eyes:
 
 ## Authors & contributors
 
-The
-The original setup of this repository is by [Adriano Amalfi][adrianoamalfi].
+The setup of this repository is by [Adriano Amalfi][adrianoamalfi].
 
 For a full list of all authors and contributors,
 check [the contributor's page][contributors].
