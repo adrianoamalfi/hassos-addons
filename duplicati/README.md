@@ -2,6 +2,13 @@
 
 ## About
 
+[![Builder](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml/badge.svg?branch=main)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml)
+[![Lint](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml/badge.svg)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml)
+
+![GitHub issues](https://img.shields.io/github/issues/adrianoamalfi/hassos-addons)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/adrianoamalfi)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/adrianoamalfi/hassos-addons/main)
+
 ![Supports amd64 Architecture][amd64-shield]
 ![Supports armhf Architecture][armhf-shield]
 ![Supports armv7 Architecture][armv7-shield]
@@ -62,3 +69,4 @@ Duplicati is licensed under LGPL and available for Windows and Linux. The softwa
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
