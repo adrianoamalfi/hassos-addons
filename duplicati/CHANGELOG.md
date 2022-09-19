@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.5
+
+- ✔️ bump home-assistant/builder from 2022.07.0 to 2022.09.0
+
 ## 0.1.4
 
 - 🖥️ Debian Base Image 6.1.1
