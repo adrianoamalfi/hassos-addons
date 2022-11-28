@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.6
+
+- ✔️ bump home-assistant/builder from 2022.09.0 to 2022.11.0
+- What's Changed: Add support for arch specifc dockerfiles (#160) @​pvizeli / Bump docker/login-action from 2.0.0 to 2.1.0 (#157) @​dependabot
+
 ## 0.1.5
 
 - ✔️ bump home-assistant/builder from 2022.07.0 to 2022.09.0
