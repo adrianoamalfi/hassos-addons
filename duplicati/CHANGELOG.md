@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.7
+- ✔️ Update Duplicati to v2.0.6.3-2.0.6.3_beta_2021-06-17
+- 🖥️ Debian Base Image 6.1.1
+    ⬆️ Upgrades Debian to Bullseye 20221205
+
 ## 0.1.6
 
 - ✔️ bump home-assistant/builder from 2022.09.0 to 2022.11.0

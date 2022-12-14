@@ -31,11 +31,6 @@ RUN apt-get update \
   && apt-get install -y binutils curl mono-devel ca-certificates-mono fsharp mono-vbnc nuget referenceassemblies-pcl \
   && rm -rf /var/lib/apt/lists/* /tmp/*
 
-# RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing
-    # apk add --no-cache --virtual=.build-dependencies ca-certificates && \
-    #cert-sync /etc/ssl/certs/ca-certificates.crt && \
-    #apk del .build-dependencies
-
 RUN set -xe && \
 	echo "**** install duplicati ****" && \
 	mkdir -p /app/duplicati && \
