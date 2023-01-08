@@ -36,7 +36,7 @@ RUN set -xe && \
 	mkdir -p /app/duplicati && \
 	if [ -z ${VERSION} ]; then \
 		VERSION=$(curl -sL "https://api.github.com/repos/duplicati/duplicati/releases" | \
-			jq -r 'first(.[] | select(.tag_name | contains("beta"))) | .tag_name'); \
+			jq -r 'first(.[] | select(.tag_name | contains("canary"))) | .tag_name'); \
 	fi && \
 	curl -o \
 		/tmp/duplicati.zip -L \
