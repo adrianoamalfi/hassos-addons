@@ -32,7 +32,7 @@ Add the repository [https://github.com/adrianoamalfi/hassos-addons](https://gith
 
 Got questions?
 
-You could also [open an issue here][issue] GitHub.
+You could also [open an issue here](https://github.com/adrianoamalfi/hassos-addons/issues/new/choose) GitHub.
 
 ## Contributing
 
@@ -43,11 +43,10 @@ Thank you for being involved! :heart_eyes:
 
 ## Authors & contributors
 
-The
-The original setup of this repository is by [Adriano Amalfi][adrianoamalfi].
+The original setup of this repository is by [Adriano Amalfi](https://github.com/adrianoamalfi).
 
 For a full list of all authors and contributors,
-check [the contributor's page][contributors].
+check [the contributor's page](https://github.com/adrianoamalfi/hassos-addons/graphs/contributors).
 
 ## License
 
