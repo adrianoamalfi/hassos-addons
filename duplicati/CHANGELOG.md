@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.8
+- ✔️ Update Duplicati to v2.0.6.104-2.0.6.104_canary_2022-06-15
+- 🖥️ Debian Base Image 6.2.0
+
 ## 0.1.7
 - ✔️ Update Duplicati to v2.0.6.3-2.0.6.3_beta_2021-06-17
 - 🖥️ Debian Base Image 6.1.1
