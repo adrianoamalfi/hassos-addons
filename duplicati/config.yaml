@@ -17,6 +17,9 @@ startup: services
 init: false
 backup_exclude: ["/backup"]
 
+privileged:
+- DAC_READ_SEARCH
+
 map:
   - config:rw
   - ssl:rw
