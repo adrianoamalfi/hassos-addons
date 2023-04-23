@@ -1,5 +1,13 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.10
+
+- ✔️ Update Duplicati to v2.0.6.105-2.0.6.105_canary_2023-04-09
+- ⬆️ build(deps): bump actions/checkout from 3.3.0 to 3.5.2
+- ⬆️ build(deps): bump home-assistant/builder from 2022.11.0 to 2023.03.0
+- 🖥️ Debian Base Image 6.2.5
+
+
 ## 0.1.9
 
 - build(deps): bump frenck/action-addon-linter from 2.10 to 2.11
