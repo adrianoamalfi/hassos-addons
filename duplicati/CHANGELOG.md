@@ -1,5 +1,11 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.11
+
+- ✔️ Update Duplicati to v2.0.7.2-2.0.7.2_canary_2023-05-25
+- ⬆️ bump frenck/action-addon-linter from 2.11 to 2.13 
+
+
 ## 0.1.10
 
 - ✔️ Update Duplicati to v2.0.6.105-2.0.6.105_canary_2023-04-09
