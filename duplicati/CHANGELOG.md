@@ -1,5 +1,11 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.12
+ - ✔️ Fix Backblaze B2 Cloud Storage 
+ - ⬆️ bump actions/checkout from 3.5.2 to 3.6.0
+ - ⬆️ bump home-assistant/builder from 2023.03.0 to 2023.08.0
+ - ⬆️ bump docker/login-action from 2.1.0 to 2.2.0
+
 ## 0.1.11
 
 - ✔️ Update Duplicati to v2.0.7.2-2.0.7.2_canary_2023-05-25
