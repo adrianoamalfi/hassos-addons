@@ -52,3 +52,7 @@ RUN set -xe && \
 
 # Copy root filesystem
 COPY rootfs /
+
+# Fix Backblaze B2 Cloud Storage
+RUN rm -rf /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt && \
+  update-ca-certificates
