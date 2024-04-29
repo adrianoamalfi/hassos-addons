@@ -1,16 +1,25 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.13
+
+- ✔️ Update Duplicati to v2.0.7.103_canary_2024-04-19
+- ⬆️ build(deps): bump home-assistant/builder from 2023.08.0 to 2024.03.5 by @dependabot in #52
+- ⬆️ build(deps): bump actions/checkout from 3.6.0 to 4.1.2 by @dependabot in #51
+- ⬆️ build(deps): bump docker/login-action from 2.2.0 to 3.1.0 by @dependabot in #50
+- ⬆️ build(deps): bump frenck/action-addon-linter from 2.13 to 2.15 by @dependabot in #47
+- ⬆️ modified: duplicati/config.yaml by @adrianoamalfi in #53
+
 ## 0.1.12
- - ✔️ Fix Backblaze B2 Cloud Storage 
- - ⬆️ bump actions/checkout from 3.5.2 to 3.6.0
- - ⬆️ bump home-assistant/builder from 2023.03.0 to 2023.08.0
- - ⬆️ bump docker/login-action from 2.1.0 to 2.2.0
+
+- ✔️ Fix Backblaze B2 Cloud Storage
+- ⬆️ bump actions/checkout from 3.5.2 to 3.6.0
+- ⬆️ bump home-assistant/builder from 2023.03.0 to 2023.08.0
+- ⬆️ bump docker/login-action from 2.1.0 to 2.2.0
 
 ## 0.1.11
 
 - ✔️ Update Duplicati to v2.0.7.2-2.0.7.2_canary_2023-05-25
-- ⬆️ bump frenck/action-addon-linter from 2.11 to 2.13 
-
+- ⬆️ bump frenck/action-addon-linter from 2.11 to 2.13
 
 ## 0.1.10
 
@@ -18,7 +27,6 @@
 - ⬆️ build(deps): bump actions/checkout from 3.3.0 to 3.5.2
 - ⬆️ build(deps): bump home-assistant/builder from 2022.11.0 to 2023.03.0
 - 🖥️ Debian Base Image 6.2.5
-
 
 ## 0.1.9
 
