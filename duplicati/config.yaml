@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: Duplicati add-on
-version: "0.1.12"
+version: "0.1.13"
 slug: duplicati
 description: Store securely encrypted backups on cloud storage services!
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati"
@@ -18,7 +18,7 @@ init: false
 backup_exclude: ["/backup"]
 
 privileged:
-- DAC_READ_SEARCH
+  - DAC_READ_SEARCH
 
 map:
   - config:rw
