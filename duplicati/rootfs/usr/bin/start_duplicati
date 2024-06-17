@@ -3,12 +3,12 @@
 # Ensure user extensions folder exists
 mkdir -p /data/duplicati/scripts
 
-cd /app/duplicati || exit
+cd /data/duplicati || exit
 
 # Starting Duplicati...
 bashio::log.info "Starting Duplicati..."
 
-exec mono Duplicati.Server.exe \
-	--webservice-interface=any \
+exec duplicati-server \
+    --webservice-interface=any --webservice-port=8200 \
 	--server-datafolder="/data/duplicati" \
 	--webservice-allowed-hostnames=*
