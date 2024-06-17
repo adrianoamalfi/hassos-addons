@@ -1,5 +1,13 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.2.0
+- ✔️ Update Duplicati to v2.0.8.1-1
+- feat ✨: Update Docker image references for Duplicati Add-on to use la… 
+- feat ✨: Update Duplicati add-on config to v0.2.0, adds aarch64 support
+- ✔️ Update Duplicati to v2.0.7.2-2.0.7.2_canary_2023-05-25
+- ⬆️ build(deps): bump actions/checkout from 4.1.2 to 4.1.7
+- ⬆️ build(deps): bump docker/login-action from 3.1.0 to 3.2.0
+
 ## 0.1.13
 
 - ✔️ Update Duplicati to v2.0.7.103_canary_2024-04-19
