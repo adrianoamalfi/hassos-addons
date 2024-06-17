@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+
 # ==============================================================================
 # Start the example service
 # s6-overlay docs: https://github.com/just-containers/s6-overlay
@@ -7,5 +8,5 @@
 # Declare variables
 
 ## Run your program
-bashio::log.info "Service Start /usr/bin/run_duplicati"
-exec /usr/bin/run_duplicati
+bashio::log.info "Service Start /usr/bin/start_duplicati"
+exec /usr/bin/start_duplicati
