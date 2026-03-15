@@ -34,7 +34,8 @@ Repository di add-on Home Assistant contenente **Duplicati**, un client di backu
 
 ## Architetture Supportate
 
-amd64, aarch64, armv7, armhf, i386 — base images Debian Bookworm da `ghcr.io/home-assistant/`.
+amd64, aarch64 — base images Debian Bookworm da `ghcr.io/home-assistant/`.
+Le architetture a 32-bit (armv7, armhf, i386) sono state rimosse in quanto deprecate dal builder HA (v2025.11.0+).
 
 ## Comandi e Workflow di Sviluppo
 
@@ -44,9 +45,10 @@ Il progetto include `.devcontainer.json` con immagine `ghcr.io/home-assistant/de
 - **Porte dev**: 7123 (UI HA), 7357 (API)
 
 ### CI/CD
-- **builder.yaml**: Triggerato da push/PR su `main`. Rileva add-on modificati controllando i file: `build.yaml`, `config.yaml`, `Dockerfile`, `rootfs/`. Build in matrice 5 architetture. Su `main` pubblica su GHCR, su PR solo test (`--test`).
-- **lint.yaml**: Triggerato da push, PR e schedule giornaliero. Usa `frenck/action-addon-linter@v2.15`.
-- **Dependabot**: Aggiorna GitHub Actions settimanalmente.
+- **builder.yaml**: Triggerato da push/PR su `main`. Rileva add-on modificati con `git diff` nativo controllando i file: `build.yaml`, `config.yaml`, `Dockerfile`, `rootfs/`. Build in matrice 2 architetture (amd64, aarch64). Su `main` pubblica su GHCR, su PR solo test (`--test`).
+- **lint.yaml**: Triggerato da push, PR e schedule giornaliero. Usa `frenck/action-addon-linter@v2.21.0`.
+- **Dependabot**: Aggiorna GitHub Actions e Docker base images settimanalmente.
+- **CODEOWNERS**: `@adrianoamalfi` come owner di tutti i file.
 
 ### Linting
 Non c'e linter locale configurato. Il linting avviene in CI via `frenck/action-addon-linter`.
@@ -73,9 +75,9 @@ Semantic Versioning (es. 0.2.0). La versione viene aggiornata in `duplicati/conf
 ## Dettagli Tecnici
 
 ### Runtime
-- **Duplicati** gira su **Mono** (.NET runtime)
+- **Duplicati** gira su **Mono** (.NET runtime, pacchetto `mono-runtime`)
 - **S6-overlay** gestisce la supervisione del processo
-- **Tempio** (v2021.09.0): template engine di Home Assistant
+- **Tempio** (v2024.11.2): template engine di Home Assistant
 - **Porta ingress**: 8200 (web UI Duplicati)
 - **Dati persistenti**: `/data/duplicati/` (database, configurazione)
 - **Script utente**: `/data/duplicati/scripts/`
@@ -85,9 +87,10 @@ Semantic Versioning (es. 0.2.0). La versione viene aggiornata in `duplicati/conf
 
 ### Sicurezza
 - Privilegio richiesto: `DAC_READ_SEARCH`
-- Profilo AppArmor per sandboxing
+- Profilo AppArmor personalizzato per Duplicati (Mono runtime, volumi montati, accesso rete)
 - Esclusione backup: `/backup` (evita ricorsione)
 - Fix certificato DST Root CA X3 per compatibilita Backblaze B2
+- GPG keyring per repo Mono in `/usr/share/keyrings/` (metodo `signed-by`)
 
 ### File chiave da modificare per aggiornamenti
 | Cosa aggiornare | File |

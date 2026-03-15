@@ -10,5 +10,5 @@ bashio::log.info "Starting Duplicati..."
 
 exec duplicati-server \
     --webservice-interface=any --webservice-port=8200 \
-	--server-datafolder="/data/duplicati" \
-	--webservice-allowed-hostnames=*
+    --server-datafolder="/data/duplicati" \
+    --webservice-allowed-hostnames=*

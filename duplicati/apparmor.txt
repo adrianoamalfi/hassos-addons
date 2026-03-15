@@ -1,12 +1,18 @@
 #include <tunables/global>
 
-profile example flags=(attach_disconnected,mediate_deleted) {
+profile duplicati flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
   file,
   signal (send) set=(kill,term,int,hup,cont),
   capability dac_read_search,
+
+  # Network access (required for cloud backup targets)
+  network inet stream,
+  network inet dgram,
+  network inet6 stream,
+  network inet6 dgram,
 
   # S6-Overlay
   /init ix,
@@ -25,31 +31,59 @@ profile example flags=(attach_disconnected,mediate_deleted) {
   /usr/lib/bashio/** ix,
   /tmp/** rwk,
 
-  # Access to options.json and other files within your addon
+  # Access to options.json and other files within the addon
   /data/** rw,
 
-  # Start new profile for service
-  /usr/bin/my_program cx -> my_program,
+  # Mono runtime
+  /usr/bin/mono ix,
+  /usr/lib/mono/** mr,
 
-  profile my_program flags=(attach_disconnected,mediate_deleted) {
+  # Duplicati
+  /usr/lib/duplicati/** mr,
+  /usr/bin/duplicati-server ix,
+  /usr/bin/start_duplicati ix,
+
+  # Mapped volumes
+  /config/** rw,
+  /ssl/** rw,
+  /media/** rw,
+  /addons/** rw,
+  /share/** rw,
+  /backup/** rw,
+
+  # Start Duplicati service profile
+  /usr/bin/duplicati-server cx -> duplicati_server,
+
+  profile duplicati_server flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/base>
 
     # Receive signals from S6-Overlay
-    signal (receive) peer=*_example,
+    signal (receive) peer=*_duplicati,
 
-    # Access to options.json and other files within your addon
+    # Network access (required for cloud backup targets)
+    network inet stream,
+    network inet dgram,
+    network inet6 stream,
+    network inet6 dgram,
+
+    # Access to addon data
     /data/** rw,
 
-    # Access to mapped volumes specified in config.json
+    # Access to mapped volumes
+    /config/** rw,
+    /ssl/** rw,
+    /media/** rw,
+    /addons/** rw,
     /share/** rw,
+    /backup/** rw,
 
-    # Access required for service functionality
-    # Note: List was built by doing the following:
-    # 1. Add what is obviously needed based on what is in the script
-    # 2. Add `complain` as a flag to this profile temporarily and run the addon
-    # 3. Review the audit log with `journalctl _TRANSPORT="audit" -g 'apparmor="ALLOWED"'` and add other access as needed
-    # Remember to remove the `complain` flag when you are done
-    /usr/bin/my_program r,
+    # Mono runtime and Duplicati binaries
+    /usr/bin/mono rix,
+    /usr/lib/mono/** mr,
+    /usr/lib/duplicati/** mr,
+    /usr/bin/duplicati-server r,
+
+    # System access
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
