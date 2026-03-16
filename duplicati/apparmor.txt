@@ -7,8 +7,10 @@ profile duplicati flags=(attach_disconnected,mediate_deleted) {
   file,
   signal (send) set=(kill,term,int,hup,cont),
   capability dac_read_search,
+  capability setuid,
+  capability setgid,
 
-  # Network access (required for cloud backup targets)
+  # Network access (required for cloud backup targets and nginx proxy)
   network inet stream,
   network inet dgram,
   network inet6 stream,
@@ -18,6 +20,7 @@ profile duplicati flags=(attach_disconnected,mediate_deleted) {
   /init ix,
   /bin/** ix,
   /usr/bin/** ix,
+  /usr/sbin/** rix,
   /run/{s6,s6-rc*,service}/** ix,
   /package/** ix,
   /command/** ix,
@@ -31,17 +34,22 @@ profile duplicati flags=(attach_disconnected,mediate_deleted) {
   /usr/lib/bashio/** ix,
   /tmp/** rwk,
 
-  # Access to options.json and other files within the addon
+  # Access to options.json, secrets, and other addon files
   /data/** rw,
 
-  # Mono runtime
-  /usr/bin/mono ix,
-  /usr/lib/mono/** mr,
-
-  # Duplicati
-  /usr/lib/duplicati/** mr,
-  /usr/bin/duplicati-server ix,
+  # Duplicati (.NET native, self-contained)
+  /usr/lib/duplicati/** rix,
+  /usr/bin/duplicati-server rix,
   /usr/bin/start_duplicati ix,
+
+  # nginx reverse proxy
+  /usr/sbin/nginx rix,
+  /usr/bin/start_nginx ix,
+  /usr/lib/nginx/** r,
+  /usr/share/nginx/** r,
+  /etc/nginx/** r,
+  /var/log/nginx/** rw,
+  /var/lib/nginx/** rw,
 
   # Mapped volumes
   /config/** rw,
@@ -51,42 +59,7 @@ profile duplicati flags=(attach_disconnected,mediate_deleted) {
   /share/** rw,
   /backup/** rw,
 
-  # Start Duplicati service profile
-  /usr/bin/duplicati-server cx -> duplicati_server,
-
-  profile duplicati_server flags=(attach_disconnected,mediate_deleted) {
-    #include <abstractions/base>
-
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_duplicati,
-
-    # Network access (required for cloud backup targets)
-    network inet stream,
-    network inet dgram,
-    network inet6 stream,
-    network inet6 dgram,
-
-    # Access to addon data
-    /data/** rw,
-
-    # Access to mapped volumes
-    /config/** rw,
-    /ssl/** rw,
-    /media/** rw,
-    /addons/** rw,
-    /share/** rw,
-    /backup/** rw,
-
-    # Mono runtime and Duplicati binaries
-    /usr/bin/mono rix,
-    /usr/lib/mono/** mr,
-    /usr/lib/duplicati/** mr,
-    /usr/bin/duplicati-server r,
-
-    # System access
-    /bin/bash rix,
-    /bin/echo ix,
-    /etc/passwd r,
-    /dev/tty rw,
-  }
+  # System access
+  /etc/passwd r,
+  /proc/sys/net/core/somaxconn r,
 }

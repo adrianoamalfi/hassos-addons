@@ -1,1 +1,11 @@
-configuration: {}
+configuration:
+  default_ui:
+    name: Default UI
+    description: >-
+      Choose which Duplicati web interface to use.
+      "ngclient" is the modern Angular UI, "ngax" is the legacy AngularJS UI.
+  log_level:
+    name: Log Level
+    description: >-
+      Set the Duplicati server log level.
+      Use "information" for normal operation, "debug" or "verbose" for troubleshooting.

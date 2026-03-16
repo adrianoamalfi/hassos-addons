@@ -1,1 +1,11 @@
-configuration: {}
+configuration:
+  default_ui:
+    name: UI predefinita
+    description: >-
+      Scegli quale interfaccia web di Duplicati utilizzare.
+      "ngclient" è la nuova UI Angular, "ngax" è la UI legacy AngularJS.
+  log_level:
+    name: Livello di log
+    description: >-
+      Imposta il livello di log del server Duplicati.
+      Usa "information" per il funzionamento normale, "debug" o "verbose" per il troubleshooting.

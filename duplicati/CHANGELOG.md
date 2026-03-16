@@ -1,5 +1,28 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.1.0
+
+- feat ✨: Add nginx reverse proxy for HA ingress (fixes connectivity and auth issues)
+- feat ✨: Support both new UI (ngclient) and legacy UI (ngax) through ingress
+- feat ✨: Add automated container startup and health check tests in CI
+- chore 📦: Remove duplicati-dev and duplicati-local variants (single addon)
+- chore 📦: Simplify CI/CD workflows and development scripts
+
+## 1.0.0
+
+- feat ✨: **BREAKING** Migrate from Mono to native .NET runtime
+- feat ✨: Update Duplicati to v2.2.0.106 (canary channel)
+- feat ✨: Self-contained architecture-specific binaries (no more Mono dependency)
+- feat ✨: Add duplicati-dev addon for testing
+- feat ✨: Add local development scripts (check-updates, bump-version, local-build, local-test)
+- feat ✨: Add automated release workflow and Duplicati update checker
+- chore 📦: Modernize CI/CD (actions/checkout v6, docker/login-action v4, builder 2026.02.1)
+- chore 📦: Replace deprecated ::set-output with $GITHUB_OUTPUT
+- chore 📦: Replace archived jitterbit/get-changed-files with native git diff
+- fix 🐛: Remove DST Root CA X3 workaround (Mono-specific, no longer needed)
+- fix 🐛: Customize AppArmor profile for Duplicati (was generic template)
+- 🖥️ Drop 32-bit architectures (armhf, armv7, i386) deprecated by HA builder
+
 ## 0.2.0
 - ✔️ Update Duplicati to v2.0.8.1-1
 - feat ✨: Update Docker image references for Duplicati Add-on to use la… 

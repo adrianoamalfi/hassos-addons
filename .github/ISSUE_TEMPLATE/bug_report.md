@@ -1,38 +1,51 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
+name: Bug Report
+about: Report a bug with the Duplicati add-on
+title: "[Bug] "
+labels: bug
+assignees: adrianoamalfi
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Environment
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+- **Add-on version**: <!-- e.g. 1.1.0 -->
+- **Home Assistant version**: <!-- e.g. 2026.3.0 -->
+- **Architecture**: <!-- amd64 or aarch64 -->
+- **Installation type**: <!-- HA OS / Supervised / Container -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Description
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- A clear description of what the bug is -->
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Steps to reproduce
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+1.
+2.
+3.
 
-**Additional context**
-Add any other context about the problem here.
+## Expected behavior
+
+<!-- What you expected to happen -->
+
+## Actual behavior
+
+<!-- What actually happened -->
+
+## Add-on logs
+
+<details>
+<summary>Logs</summary>
+
+```
+<!-- Paste add-on logs here (Settings > Add-ons > Duplicati > Log) -->
+```
+
+</details>
+
+## Screenshots
+
+<!-- If applicable, add screenshots -->
+
+## Additional context
+
+<!-- Any other info that might help -->

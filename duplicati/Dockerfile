@@ -2,8 +2,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Execute during the build of the image
-ARG TEMPIO_VERSION BUILD_ARCH DUPLICATI_VERSION
+# Build arguments
+ARG TEMPIO_VERSION BUILD_ARCH DUPLICATI_VERSION DUPLICATI_CHANNEL DUPLICATI_DATE
 
 # Install Tempio (Home Assistant template engine)
 RUN curl -sSLf -o /usr/bin/tempio \
@@ -15,32 +15,50 @@ RUN if dpkg --print-foreign-architectures | grep -q armhf; then \
     dpkg --remove-architecture armhf; \
     fi
 
-# Install Mono runtime and Duplicati
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends gnupg2 wget dirmngr ca-certificates \
-    && gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
-    && gpg --batch --export 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF > /usr/share/keyrings/mono-official-archive-keyring.gpg \
-    && echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] http://download.mono-project.com/repo/debian stable-buster main" \
-       > /etc/apt/sources.list.d/mono-official.list \
-    && apt-get update \
+# Map Home Assistant architecture to Duplicati architecture and install
+RUN set -eux; \
+    case "${BUILD_ARCH}" in \
+        amd64)   DUPLICATI_ARCH="x64" ;; \
+        aarch64) DUPLICATI_ARCH="arm64" ;; \
+        *)       echo "Unsupported architecture: ${BUILD_ARCH}" && exit 1 ;; \
+    esac; \
+    DEB_NAME="duplicati-${DUPLICATI_VERSION}_${DUPLICATI_CHANNEL}_${DUPLICATI_DATE}-linux-${DUPLICATI_ARCH}-gui.deb"; \
+    DEB_URL="https://updates.duplicati.com/${DUPLICATI_CHANNEL}/${DEB_NAME}"; \
+    apt-get update \
     && apt-get install -y --no-install-recommends \
-       mono-runtime \
-       apt-transport-https \
-       software-properties-common \
-    && wget -q "https://updates.duplicati.com/beta/duplicati_${DUPLICATI_VERSION}_all.deb" \
-    && apt-get install -y --no-install-recommends "./duplicati_${DUPLICATI_VERSION}_all.deb" \
-    && rm -f "duplicati_${DUPLICATI_VERSION}_all.deb" \
+       ca-certificates curl libicu72 nginx jq \
+    && curl -sSLf -o "/tmp/${DEB_NAME}" "${DEB_URL}" \
+    && apt-get install -y --no-install-recommends "/tmp/${DEB_NAME}" \
+    && rm -f "/tmp/${DEB_NAME}" \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /etc/nginx/sites-enabled/default
 
 # Copy root filesystem
 COPY rootfs /
 
 # Ensure scripts are executable
 RUN chmod +x /usr/bin/start_duplicati \
+    && chmod +x /usr/bin/start_nginx \
     && chmod +x /etc/services.d/duplicati/run \
-    && chmod +x /etc/services.d/duplicati/finish
+    && chmod +x /etc/services.d/duplicati/finish \
+    && chmod +x /etc/services.d/nginx/run \
+    && chmod +x /etc/services.d/nginx/finish
 
-# Fix Backblaze B2 Cloud Storage (remove expired DST Root CA X3 certificate)
-RUN rm -f /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt \
-    && update-ca-certificates
+# OCI image labels
+LABEL \
+    org.opencontainers.image.title="Home Assistant Add-on: Duplicati" \
+    org.opencontainers.image.description="Store securely encrypted backups on cloud storage services" \
+    org.opencontainers.image.source="https://github.com/adrianoamalfi/hassos-addons" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.url="https://github.com/adrianoamalfi/hassos-addons/tree/main/duplicati" \
+    org.opencontainers.image.vendor="Adriano Amalfi" \
+    io.hass.name="Duplicati" \
+    io.hass.description="Store securely encrypted backups on cloud storage services" \
+    io.hass.type="addon" \
+    io.hass.arch="${BUILD_ARCH}" \
+    io.hass.version="${DUPLICATI_VERSION}"
+
+# Health check: verify nginx is responding
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD curl -sf http://localhost:8080/ || exit 1

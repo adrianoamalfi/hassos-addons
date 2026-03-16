@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Docker
+*.tar
+
+# Claude Code
+.claude/
+
+# Local test data
+/tmp/
