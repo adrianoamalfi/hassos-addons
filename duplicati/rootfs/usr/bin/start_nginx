@@ -5,8 +5,11 @@ TOKEN_FILE="/tmp/pre_auth_token"
 NGINX_CONF="/tmp/nginx.conf"
 JS_SHIM="/tmp/ingress-fix.js"
 
-# Read addon options
-DEFAULT_UI=$(bashio::config 'default_ui' 'ngclient')
+# Read addon options (fallback to defaults when Supervisor API is unavailable, e.g. in CI)
+DEFAULT_UI="ngclient"
+if bashio::config.exists 'default_ui' 2>/dev/null; then
+    DEFAULT_UI=$(bashio::config 'default_ui')
+fi
 bashio::log.info "Default UI: ${DEFAULT_UI}"
 
 # ============================================================

@@ -22,8 +22,11 @@ else
     bashio::log.info "Pre-auth token loaded"
 fi
 
-# Read log level from addon options
-LOG_LEVEL=$(bashio::config 'log_level' 'information')
+# Read log level from addon options (fallback when Supervisor API is unavailable, e.g. in CI)
+LOG_LEVEL="information"
+if bashio::config.exists 'log_level' 2>/dev/null; then
+    LOG_LEVEL=$(bashio::config 'log_level')
+fi
 bashio::log.info "Duplicati log level: ${LOG_LEVEL}"
 
 # Duplicati listens on internal port 8200 (nginx on 8080 handles ingress)

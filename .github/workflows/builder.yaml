@@ -113,7 +113,7 @@ jobs:
 
       - name: Wait for services and health check
         run: |
-          echo "Waiting for container services to start..."
+          echo "Waiting for nginx to start..."
           for i in $(seq 1 60); do
             if curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/ | grep -qE "200|301|302|307"; then
               echo "nginx is responding (attempt $i)"
@@ -127,16 +127,22 @@ jobs:
             sleep 2
           done
 
-          # Verify Duplicati API is accessible through nginx
-          echo "Checking Duplicati API..."
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/v1/serverstate)
-          if [[ "$HTTP_CODE" =~ ^(200|302|307|401|403)$ ]]; then
-            echo "Duplicati API accessible (HTTP ${HTTP_CODE})"
-          else
-            echo "Duplicati API not accessible (HTTP ${HTTP_CODE})"
-            docker logs duplicati-test
-            exit 1
-          fi
+          # Wait for Duplicati API to be accessible through nginx
+          # (Duplicati .NET server takes longer to start than nginx)
+          echo "Waiting for Duplicati API..."
+          for i in $(seq 1 60); do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/v1/serverstate)
+            if [[ "$HTTP_CODE" =~ ^(200|302|307|401|403)$ ]]; then
+              echo "Duplicati API accessible (HTTP ${HTTP_CODE}, attempt $i)"
+              break
+            fi
+            if [ $i -eq 60 ]; then
+              echo "Timeout waiting for Duplicati API (last HTTP ${HTTP_CODE})"
+              docker logs duplicati-test
+              exit 1
+            fi
+            sleep 2
+          done
 
           echo "All health checks passed"
 
