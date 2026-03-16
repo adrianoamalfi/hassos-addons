@@ -1,17 +1,26 @@
 #include <tunables/global>
 
-profile example flags=(attach_disconnected,mediate_deleted) {
+profile duplicati flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
   file,
   signal (send) set=(kill,term,int,hup,cont),
   capability dac_read_search,
+  capability setuid,
+  capability setgid,
+
+  # Network access (required for cloud backup targets and nginx proxy)
+  network inet stream,
+  network inet dgram,
+  network inet6 stream,
+  network inet6 dgram,
 
   # S6-Overlay
   /init ix,
   /bin/** ix,
   /usr/bin/** ix,
+  /usr/sbin/** rix,
   /run/{s6,s6-rc*,service}/** ix,
   /package/** ix,
   /command/** ix,
@@ -25,34 +34,32 @@ profile example flags=(attach_disconnected,mediate_deleted) {
   /usr/lib/bashio/** ix,
   /tmp/** rwk,
 
-  # Access to options.json and other files within your addon
+  # Access to options.json, secrets, and other addon files
   /data/** rw,
 
-  # Start new profile for service
-  /usr/bin/my_program cx -> my_program,
+  # Duplicati (.NET native, self-contained)
+  /usr/lib/duplicati/** rix,
+  /usr/bin/duplicati-server rix,
+  /usr/bin/start_duplicati ix,
 
-  profile my_program flags=(attach_disconnected,mediate_deleted) {
-    #include <abstractions/base>
+  # nginx reverse proxy
+  /usr/sbin/nginx rix,
+  /usr/bin/start_nginx ix,
+  /usr/lib/nginx/** r,
+  /usr/share/nginx/** r,
+  /etc/nginx/** r,
+  /var/log/nginx/** rw,
+  /var/lib/nginx/** rw,
 
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_example,
+  # Mapped volumes
+  /config/** rw,
+  /ssl/** rw,
+  /media/** rw,
+  /addons/** rw,
+  /share/** rw,
+  /backup/** rw,
 
-    # Access to options.json and other files within your addon
-    /data/** rw,
-
-    # Access to mapped volumes specified in config.json
-    /share/** rw,
-
-    # Access required for service functionality
-    # Note: List was built by doing the following:
-    # 1. Add what is obviously needed based on what is in the script
-    # 2. Add `complain` as a flag to this profile temporarily and run the addon
-    # 3. Review the audit log with `journalctl _TRANSPORT="audit" -g 'apparmor="ALLOWED"'` and add other access as needed
-    # Remember to remove the `complain` flag when you are done
-    /usr/bin/my_program r,
-    /bin/bash rix,
-    /bin/echo ix,
-    /etc/passwd r,
-    /dev/tty rw,
-  }
+  # System access
+  /etc/passwd r,
+  /proc/sys/net/core/somaxconn r,
 }

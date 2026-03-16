@@ -1,7 +1,11 @@
 configuration:
-  serverdatafolder:
-    name: server-datafolder
-    description: Duplicati salva un piccolo database. Usa questa parametro per scegliere la cartella dove salvare le impostazioni.
-  loglevel:
-    name: log-level
-    description: Quantità di informazioni scritte nei log.
+  default_ui:
+    name: UI predefinita
+    description: >-
+      Scegli quale interfaccia web di Duplicati utilizzare.
+      "ngclient" è la nuova UI Angular, "ngax" è la UI legacy AngularJS.
+  log_level:
+    name: Livello di log
+    description: >-
+      Imposta il livello di log del server Duplicati.
+      Usa "information" per il funzionamento normale, "debug" o "verbose" per il troubleshooting.

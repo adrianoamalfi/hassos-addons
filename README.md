@@ -1,34 +1,48 @@
-# Adriano Home Assistant add-on repository
-
-This repository
-
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fadrianoamalfi%2Fhassos-addons)
-
-![GitHub issues](https://img.shields.io/github/issues/adrianoamalfi/hassos-addons)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/adrianoamalfi)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/adrianoamalfi/hassos-addons/main)
-
-## Add-ons
-
-This repository contains the following add-ons
-
-### [Duplicati add-on](./duplicati)
+# Adriano's Home Assistant Add-on Repository
 
 [![Builder](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml/badge.svg?branch=main)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml)
 [![Lint](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml/badge.svg)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml)
+[![GitHub issues](https://img.shields.io/github/issues/adrianoamalfi/hassos-addons)](https://github.com/adrianoamalfi/hassos-addons/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/adrianoamalfi/hassos-addons/main)](https://github.com/adrianoamalfi/hassos-addons/commits/main)
+[![License](https://img.shields.io/github/license/adrianoamalfi/hassos-addons)](LICENSE)
+
+## Installation
+
+Click the button below to add this repository to your Home Assistant instance:
+
+[![Add repository to Home Assistant](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fadrianoamalfi%2Fhassos-addons)
+
+Or manually add the repository URL in **Settings > Add-ons > Add-on Store > ⋮ > Repositories**:
+
+```
+https://github.com/adrianoamalfi/hassos-addons
+```
+
+## Add-ons
+
+### [Duplicati](./duplicati)
 
 ![Supports amd64 Architecture][amd64-shield]
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
 ![Supports aarch64 Architecture][aarch64-shield]
-![Supports i386 Architecture][i386-shield]
 
-This Addon-on allows you to run [Duplicati](https://www.duplicati.com/) on a device running [Home Assistant](https://www.home-assistant.io/).
+Store securely encrypted, incremental, compressed backups on cloud storage services. Supports Amazon S3, Backblaze B2, Google Drive, Dropbox, OneDrive, Azure, FTP, SFTP, WebDAV, and many more.
 
-[Duplicati](https://www.duplicati.com/) is a free, open source, backup client that securely stores encrypted, incremental, compressed backups on cloud storage services and remote file servers.
+**Key features:**
+- AES-256 encryption for all backup data
+- Incremental backups to save bandwidth and storage
+- Built-in scheduler for automatic backups
+- Web UI fully integrated in Home Assistant via ingress
+- Backs up HA config, media, share, ssl, addons, and backup folders
+
+## Support
+
+- [Open an issue](https://github.com/adrianoamalfi/hassos-addons/issues/new/choose) for bugs or feature requests
+- [Discussions](https://github.com/adrianoamalfi/hassos-addons/discussions) for questions and general help
+
+## License
+
+This add-on repository is licensed under the [Apache License 2.0](LICENSE).
+Duplicati itself is licensed under [LGPL](https://github.com/duplicati/duplicati/blob/master/LICENSE.txt).
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg

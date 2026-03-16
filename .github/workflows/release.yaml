@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "duplicati/config.yaml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Create release for duplicati add-on
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 2
+
+      - name: Check for version changes and create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CONFIG="duplicati/config.yaml"
+          CURRENT_VERSION=$(grep '^version:' "$CONFIG" | sed 's/version: *"\(.*\)"/\1/')
+          PREVIOUS_VERSION=$(git show HEAD~1:"$CONFIG" 2>/dev/null | grep '^version:' | sed 's/version: *"\(.*\)"/\1/' || echo "")
+
+          if [[ "$CURRENT_VERSION" == "$PREVIOUS_VERSION" ]] || [[ -z "$PREVIOUS_VERSION" ]]; then
+            echo "No version change for duplicati (${CURRENT_VERSION})"
+            exit 0
+          fi
+
+          echo "Version changed: ${PREVIOUS_VERSION} -> ${CURRENT_VERSION}"
+
+          TAG="duplicati-v${CURRENT_VERSION}"
+          TITLE="duplicati v${CURRENT_VERSION}"
+
+          # Extract changelog section for this version
+          CHANGELOG="duplicati/CHANGELOG.md"
+          BODY=""
+          if [[ -f "$CHANGELOG" ]]; then
+            BODY=$(awk "/^## ${CURRENT_VERSION}$/,/^## /" "$CHANGELOG" | head -n -1 | tail -n +2)
+          fi
+
+          if [[ -z "$BODY" ]]; then
+            BODY="Release duplicati v${CURRENT_VERSION}"
+          fi
+
+          # Check if tag already exists
+          if git rev-parse "$TAG" &>/dev/null; then
+            echo "Tag ${TAG} already exists, skipping"
+            exit 0
+          fi
+
+          echo "Creating release: ${TITLE} (tag: ${TAG})"
+          gh release create "$TAG" \
+            --title "$TITLE" \
+            --notes "$BODY" \
+            --target "${{ github.sha }}"
