@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.1.1
+
+- ⬆️ Update Duplicati to v2.2.0.107 (2026-03-20)
+
 ## 1.1.0
 
 - feat ✨: Add nginx reverse proxy for HA ingress (fixes connectivity and auth issues)

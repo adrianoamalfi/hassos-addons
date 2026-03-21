@@ -9,6 +9,6 @@ labels:
   org.opencontainers.image.licenses: "Apache License 2.0"
 args:
   TEMPIO_VERSION: "2024.11.2"
-  DUPLICATI_VERSION: "2.2.0.106"
+  DUPLICATI_VERSION: "2.2.0.107"
   DUPLICATI_CHANNEL: "canary"
-  DUPLICATI_DATE: "2026-03-06"
+  DUPLICATI_DATE: "2026-03-20"
