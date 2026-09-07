@@ -3,6 +3,7 @@
 ## 1.1.3
 
 - ⬆️ Update Duplicati to v2.4.0.100 (2026-09-04)
+- fix 🐛: Restrict `/data/duplicati` permissions to 700 (Duplicati 2.4.x refuses to start on a group/world-accessible data folder)
 
 ## 1.1.2
 
