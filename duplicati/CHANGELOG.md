@@ -3,7 +3,7 @@
 ## 1.1.3
 
 - ⬆️ Update Duplicati to v2.4.0.100 (2026-09-04)
-- fix 🐛: Restrict `/data/duplicati` permissions to 700 (Duplicati 2.4.x refuses to start on a group/world-accessible data folder)
+- fix 🐛: Secure `/data/duplicati` (owner root, mode 700) so Duplicati 2.4.x passes its new data-folder security check; grant `chown`/`fowner` in the AppArmor profile and degrade to a warning if a restricted host denies it
 
 ## 1.1.2
 

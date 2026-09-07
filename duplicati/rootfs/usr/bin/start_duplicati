@@ -6,8 +6,11 @@ mkdir -p /data/duplicati/scripts
 # Duplicati >= 2.4.0.x refuses to start unless the data folder is owned by the
 # running user (root) and not group/world accessible. Enforce both; this also
 # repairs folders created by an older version or a different uid on upgrade.
-chown root:root /data/duplicati
-chmod 700 /data/duplicati
+# Non-fatal: changing ownership away from root needs CAP_CHOWN/CAP_FOWNER, which
+# the AppArmor profile only grants for this exact purpose — degrade to a warning
+# rather than crash if a restricted host denies it.
+chown root:root /data/duplicati 2>/dev/null || bashio::log.warning "Could not chown /data/duplicati"
+chmod 700 /data/duplicati 2>/dev/null || bashio::log.warning "Could not chmod /data/duplicati"
 
 cd /data/duplicati || exit
 

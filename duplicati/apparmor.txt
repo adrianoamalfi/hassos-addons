@@ -9,6 +9,8 @@ profile duplicati flags=(attach_disconnected,mediate_deleted) {
   capability dac_read_search,
   capability setuid,
   capability setgid,
+  capability chown,
+  capability fowner,
 
   # Network access (required for cloud backup targets and nginx proxy)
   network inet stream,
