@@ -100,7 +100,7 @@ jobs:
 
           git push origin "$BRANCH"
 
-          gh pr create \
+          NEW_PR_URL=$(gh pr create \
             --title "⬆️ Update Duplicati to v${NEW_VERSION}" \
             --body "$(cat <<EOF
           ## Summary
@@ -116,4 +116,24 @@ jobs:
           EOF
           )" \
             --base main \
-            --head "$BRANCH"
+            --head "$BRANCH")
+
+          echo "Created PR: ${NEW_PR_URL}"
+
+          NEW_PR_NUMBER=$(echo "${NEW_PR_URL}" | grep -oE '[0-9]+$')
+          if [[ -z "${NEW_PR_NUMBER}" ]]; then
+            echo "Could not determine new PR number, skipping supersede"
+            exit 0
+          fi
+
+          # Close superseded auto-generated update PRs (older Duplicati versions)
+          OBSOLETE_PRS=$(gh pr list \
+            --state open \
+            --limit 100 \
+            --json number,headRefName,author \
+            --jq '[.[] | select(.headRefName | startswith("update-duplicati-")) | select(.author.login == "app/github-actions") | select(.number != '"${NEW_PR_NUMBER}"') | .number][]')
+
+          for PR in ${OBSOLETE_PRS}; do
+            echo "Closing superseded PR #${PR}"
+            gh pr close "${PR}" --comment "Superseded by #${NEW_PR_NUMBER}."
+          done
