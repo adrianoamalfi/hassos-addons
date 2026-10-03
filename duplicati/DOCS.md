@@ -29,6 +29,15 @@ Amazon S3, IDrive e2, Backblaze B2, Box, Dropbox, FTP, Google Cloud & Drive, MEG
 
 > **Note:** The `/backup` folder is excluded from Duplicati backups by default to prevent recursion (backing up backups of backups).
 
+## Configuration
+
+The add-on exposes two configuration options under **Configuration** in the add-on settings:
+
+| Option | Values | Default | Description |
+|--------|--------|---------|-------------|
+| `default_ui` | `ngclient`, `ngax` | `ngclient` | Choose which Duplicati web interface to use. `ngclient` is the modern Angular UI; `ngax` is the legacy AngularJS UI. |
+| `log_level` | `verbose`, `debug`, `information`, `warning`, `error` | `information` | Set the Duplicati server log level. Use `information` for normal operation, `debug`/`verbose` for troubleshooting. |
+
 ## Quick start
 
 1. Install and start the add-on
