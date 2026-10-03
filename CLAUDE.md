@@ -36,7 +36,8 @@ Repository di add-on Home Assistant contenente **Duplicati**, un client di backu
 │   ├── builder.yaml              # CI: build Docker multi-arch + push GHCR + test container
 │   ├── lint.yaml                 # CI: linting addon
 │   ├── release.yaml              # CI: crea GitHub Release su version bump
-│   └── check-updates.yaml        # CI: controlla aggiornamenti Duplicati (daily), crea PR
+│   ├── check-updates.yaml        # CI: controlla aggiornamenti Duplicati (daily), crea PR
+│   └── auto-approve.yaml         # CI: auto-approva i run dei PR di update generati da bot
 ├── .github/CODEOWNERS
 ├── .github/dependabot.yaml
 ├── repository.yaml
@@ -66,11 +67,12 @@ Mapping Duplicati: amd64→x64, aarch64→arm64.
 - **Porte**: 7123 (UI HA), 7357 (API)
 
 ### CI/CD
-- **builder.yaml**: Push/PR su `main` (path: `duplicati/**`). Matrice 2 arch. Su `main` pubblica GHCR, su PR test (`--test`) + container startup test.
+- **builder.yaml**: Push/PR su `main` (path: `duplicati/**`) + `workflow_dispatch`. Matrice 2 arch. Su `main` pubblica GHCR, su PR test (`--test`) + container startup test. Usa `home-assistant/builder@2026.03.2` (pinnato: i tag ≥ 2026.06.0 non hanno immagine builder pubblicata su ghcr.io, quindi i bump Dependabot rompono la build).
 - **lint.yaml**: Push/PR/schedule giornaliero. `frenck/action-addon-linter@v2.21.0`.
 - **release.yaml**: Push su `main` (path: `duplicati/config.yaml`). Se `version` cambia, crea GitHub Release con tag `duplicati-v{version}`.
-- **check-updates.yaml**: Schedule giornaliero + manual. Controlla canary su GitHub API, crea PR automatica se update disponibile.
-- **Dependabot**: Aggiorna GitHub Actions e Docker base images settimanalmente.
+- **check-updates.yaml**: Schedule giornaliero + manual. Controlla canary su GitHub API, crea PR automatica se update disponibile e chiude i PR `update-duplicati-*` superati.
+- **auto-approve.yaml**: `pull_request_target` su `main`. Approva i workflow run `action_required` dei PR aperti da `github-actions[bot]` su branch `update-duplicati-*` (per i fork senza permessi workflow).
+- **Dependabot**: Aggiorna GitHub Actions e Docker base images settimanalmente. Ignora `home-assistant/builder` (vedi `builder.yaml`).
 - **CODEOWNERS**: `@adrianoamalfi` owner di tutti i file.
 
 ## Convenzioni
