@@ -1,0 +1,54 @@
+name: Auto-approve bot workflow runs
+
+on:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  actions: write
+  contents: read
+  pull-requests: read
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    name: Approve workflow runs for auto-generated update PR
+    if: |
+      github.event.pull_request.user.login == 'github-actions[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'update-duplicati-')
+    steps:
+      - name: Approve pending workflow runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          RUN_IDS=""
+
+          for attempt in $(seq 1 12); do
+            RUN_IDS=$(gh api -X GET "repos/${{ github.repository }}/actions/runs" \
+              -f event="pull_request" \
+              -f status="action_required" \
+              -f head_sha="${HEAD_SHA}" \
+              --jq '.workflow_runs[].id')
+
+            if [[ -n "$RUN_IDS" ]]; then
+              break
+            fi
+            echo "No pending runs yet (attempt ${attempt}/12), waiting..."
+            sleep 5
+          done
+
+          if [[ -z "$RUN_IDS" ]]; then
+            echo "No pending workflow runs to approve"
+            exit 0
+          fi
+
+          for RUN_ID in $RUN_IDS; do
+            echo "Approving workflow run ${RUN_ID}"
+            gh api -X POST "repos/${{ github.repository }}/actions/runs/${RUN_ID}/approve"
+          done
