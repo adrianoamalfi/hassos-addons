@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: weekly
       time: "06:00"
+    ignore:
+      - dependency-name: "home-assistant/builder"
+        # The action is deprecated and tags >= 2026.06.0 have no published
+        # builder image on ghcr.io, so Dependabot bumps break the build.
 
   - package-ecosystem: "docker"
     directory: "/duplicati"
