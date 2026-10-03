@@ -15,7 +15,7 @@ jobs:
     name: Check for new Duplicati canary releases
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Check for updates
         id: check
