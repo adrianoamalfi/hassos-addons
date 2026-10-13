@@ -13,10 +13,11 @@ Assistant API access, host networking, the Docker socket or HA folder mounts.
 ## Persistent data and backup
 
 Termix stores its database, encryption keys, plugins and settings in `/data/termix`.
-Home Assistant includes this directory in app backups. Keep the database and its
+Home Assistant includes this directory in app backups. Cold backup mode asks the
+Supervisor to stop Termix while backing it up. Keep the database and its
 `.env` keys together: losing the keys makes the encrypted database unreadable.
-Stop the app before creating a backup when a consistent live snapshot cannot be
-guaranteed. Test restoring a backup before relying on it for recovery.
+For manual copies, stop the app before copying this directory. Test restoring a
+Home Assistant backup before relying on it for recovery.
 
 Upstream's inherited `/app/data` Docker volume is unused by this wrapper. Application
 bootstrap and data paths are redirected to the Supervisor-managed `/data/termix`.

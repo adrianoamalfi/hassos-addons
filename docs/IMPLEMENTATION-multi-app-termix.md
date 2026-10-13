@@ -36,6 +36,8 @@ nel campo `build_from`.
 Il wrapper legge il percorso ingress dall'API Supervisor con ruolo default, poi
 rimuove le credenziali Supervisor dall'ambiente del backend. Conserva database,
 chiavi e plugin in `/data/termix`, senza montare cartelle HA o pubblicare porte LAN.
+La configurazione richiede backup a freddo, con arresto dell'app da parte del
+Supervisor durante il backup, per conservare una copia consistente del database.
 
 Tre adattamenti sono necessari per il pannello HA:
 
@@ -67,13 +69,14 @@ supporto iniziale.
 | Terminale SSH | connessione a un host sintetico e input `termix-ingress-ok` visibile |
 | Duplicati aarch64 nativo | build e verifica UI/API riusciti |
 | Duplicati amd64 sul Mac ARM | build riuscita; runtime instabile in emulazione, da verificare sulla CI nativa |
+| Build e test GitHub su runner nativi | tutti e quattro i job riusciti; controllo lint finale in corso |
 
 I test usano account, chiavi e host sintetici. Container, reti e volumi temporanei
 sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori prove.
 
 ## Verifiche ancora necessarie
 
-- Esito della matrice GitHub su runner nativi, in particolare Duplicati amd64.
+- Esito finale della CI dopo la normalizzazione dei valori predefiniti nel manifest HA.
 - Installazione dal repository e apertura attraverso il Supervisor HAOS reale.
 - Backup/restore gestito da Home Assistant e aggiornamento dell'app installata.
 - Upload/download SFTP verso un host reale e sessione SSH prolungata.

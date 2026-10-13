@@ -7,14 +7,10 @@ arch:
   - amd64
   - aarch64
 stage: experimental
-startup: application
 boot: manual
-init: true
+backup: cold
 ingress: true
 ingress_port: 8080
 panel_icon: mdi:console-network
 hassio_api: true
-hassio_role: default
-options: {}
-schema: {}
 image: "ghcr.io/adrianoamalfi/{arch}-addon-termix"
