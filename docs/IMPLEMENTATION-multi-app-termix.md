@@ -2,6 +2,9 @@
 
 13 ottobre 2026. Branch `dev/multi-app-termix`.
 
+Modifiche nella [PR in bozza numero 108](https://github.com/adrianoamalfi/hassos-addons/pull/108).
+La PR mostra lo stato aggiornato dei controlli GitHub.
+
 Il repository ora scopre le app dalle rispettive directory e include Termix 0.1.0,
 in fase sperimentale, basato su Termix 26.10.1. Le modifiche sono pronte per revisione;
 l'installazione reale su HAOS resta una verifica necessaria prima del rilascio stabile.
@@ -68,15 +71,14 @@ supporto iniziale.
 | Browser reale con iframe | onboarding, login, creazione host e terminale SSH riusciti |
 | Terminale SSH | connessione a un host sintetico e input `termix-ingress-ok` visibile |
 | Duplicati aarch64 nativo | build e verifica UI/API riusciti |
-| Duplicati amd64 sul Mac ARM | build riuscita; runtime instabile in emulazione, da verificare sulla CI nativa |
-| Build e test GitHub su runner nativi | tutti e quattro i job riusciti; controllo lint finale in corso |
+| Duplicati amd64 sul Mac ARM | build riuscita; runtime instabile in emulazione, verificato con successo sulla CI nativa |
+| Build e test GitHub su runner nativi | tutti e quattro i job riusciti |
 
 I test usano account, chiavi e host sintetici. Container, reti e volumi temporanei
 sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori prove.
 
 ## Verifiche ancora necessarie
 
-- Esito finale della CI dopo la normalizzazione dei valori predefiniti nel manifest HA.
 - Installazione dal repository e apertura attraverso il Supervisor HAOS reale.
 - Backup/restore gestito da Home Assistant e aggiornamento dell'app installata.
 - Upload/download SFTP verso un host reale e sessione SSH prolungata.
