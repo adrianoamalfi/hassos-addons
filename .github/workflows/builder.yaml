@@ -1,156 +1,153 @@
 name: Builder
 
-env:
-  BUILD_ARGS: "--test"
-
 on:
   push:
-    branches:
-      - main
-    paths:
-      - "duplicati/**"
+    branches: [main]
   pull_request:
-    branches:
-      - main
-    paths:
-      - "duplicati/**"
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      addon:
+        description: App directory, or all
+        default: all
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: builder-${{ github.event_name }}-${{ github.event.pull_request.number || github.sha }}-${{ inputs.addon || 'all' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build:
+  discover:
     runs-on: ubuntu-latest
-    name: Build ${{ matrix.arch }} duplicati add-on
-    strategy:
-      matrix:
-        arch: ["amd64", "aarch64"]
+    outputs:
+      matrix: ${{ steps.apps.outputs.matrix }}
+      addons: ${{ steps.apps.outputs.addons }}
+      releases: ${{ steps.apps.outputs.releases }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v7.0.1
-
-      - name: Get information
-        id: info
-        uses: home-assistant/actions/helpers/info@master
+      - uses: actions/checkout@v7.0.1
         with:
-          path: "./duplicati"
-
-      - name: Check if add-on should be built
-        id: check
+          fetch-depth: 0
+      - name: Install tooling
+        uses: ./.github/actions/setup-apps
+      - name: Select apps
+        id: apps
+        run: python3 scripts/apps.py select --event-file "$GITHUB_EVENT_PATH" --github-output "$GITHUB_OUTPUT"
+      - name: Test automation and runtime adapters
         run: |
-          if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-             echo "build_arch=true" >> $GITHUB_OUTPUT
-             echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT
-             if [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-                 echo "BUILD_ARGS=" >> $GITHUB_ENV;
-             fi
-           else
-             echo "${{ matrix.arch }} is not a valid arch for duplicati, skipping build";
-             echo "build_arch=false" >> $GITHUB_OUTPUT
-          fi
+          python3 -m unittest discover -s tests -v
+          node --test tests/termix-runtime.test.cjs
 
-      - name: Login to GitHub Container Registry
-        if: env.BUILD_ARGS != '--test'
-        uses: docker/login-action@v4.6.0
+  build:
+    needs: discover
+    if: needs.discover.outputs.addons != '[]'
+    runs-on: ${{ matrix.arch == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    name: Build and test ${{ matrix.addon }} (${{ matrix.arch }})
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Install tooling
+        uses: ./.github/actions/setup-apps
+      - name: Build app
+        env:
+          ADDON: ${{ matrix.addon }}
+          ARCH: ${{ matrix.arch }}
+        run: python3 scripts/apps.py build --addon "$ADDON" --arch "$ARCH" --tag app-test:ci
+      - name: Test the built image
+        env:
+          ADDON: ${{ matrix.addon }}
+          ARCH: ${{ matrix.arch }}
+        run: python3 scripts/apps.py test --addon "$ADDON" --arch "$ARCH" --tag app-test:ci
+      - name: Test Termix ingress integration
+        if: matrix.addon == 'termix' && matrix.arch == 'amd64'
+        run: |
+          docker tag app-test:ci local/termix:latest
+          python3 tests/test-termix-ingress.py
+      - name: Save tested image
+        if: github.event_name == 'push' && contains(fromJSON(needs.discover.outputs.releases), matrix.addon)
+        run: docker save app-test:ci -o /tmp/app-image.tar
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'push' && contains(fromJSON(needs.discover.outputs.releases), matrix.addon)
+        with:
+          name: image-${{ matrix.addon }}-${{ matrix.arch }}
+          path: /tmp/app-image.tar
+          retention-days: 2
+
+  lint:
+    needs: discover
+    if: needs.discover.outputs.addons != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        addon: ${{ fromJSON(needs.discover.outputs.addons) }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: frenck/action-addon-linter@v2.21.1
+        with:
+          path: ./${{ matrix.addon }}
+
+  publish:
+    needs: [discover, build, lint]
+    if: github.event_name == 'push' && needs.discover.outputs.releases != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Install tooling
+        uses: ./.github/actions/setup-apps
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: image-*
+          path: /tmp/images
+      - uses: docker/login-action@v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish tested images
+        env:
+          RELEASE_APPS: ${{ needs.discover.outputs.releases }}
+        run: python3 scripts/apps.py publish --artifacts /tmp/images --addons "$RELEASE_APPS"
 
-      - name: Build duplicati add-on
-        if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2026.03.2
-        with:
-          args: |
-            ${{ env.BUILD_ARGS }} \
-            --${{ matrix.arch }} \
-            --target /data/duplicati \
-            --image "${{ steps.check.outputs.image }}" \
-            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
-            --addon
-
-  test:
-    needs: build
+  release:
+    needs: [discover, publish]
+    if: github.event_name == 'push' && needs.discover.outputs.releases != '[]'
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    name: Test container startup
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        addon: ${{ fromJSON(needs.discover.outputs.releases) }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v7.0.1
+      - uses: actions/checkout@v7.0.1
+      - name: Install tooling
+        uses: ./.github/actions/setup-apps
+      - name: Create app release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADDON: ${{ matrix.addon }}
+        run: python3 scripts/apps.py release --addon "$ADDON" --commit "$GITHUB_SHA"
 
-      - name: Get build information
-        id: info
+  result:
+    name: App build checks
+    if: always()
+    needs: [discover, build, lint, publish, release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check results
+        env:
+          RESULTS: ${{ toJSON(needs) }}
         run: |
-          BUILD_FROM=$(grep "amd64:" duplicati/build.yaml | head -1 | sed 's/.*: *"\(.*\)"/\1/')
-          TEMPIO_VERSION=$(grep 'TEMPIO_VERSION:' duplicati/build.yaml | sed 's/.*: *"\(.*\)"/\1/')
-          DUPLICATI_VERSION=$(grep 'DUPLICATI_VERSION:' duplicati/build.yaml | sed 's/.*: *"\(.*\)"/\1/')
-          DUPLICATI_CHANNEL=$(grep 'DUPLICATI_CHANNEL:' duplicati/build.yaml | sed 's/.*: *"\(.*\)"/\1/')
-          DUPLICATI_DATE=$(grep 'DUPLICATI_DATE:' duplicati/build.yaml | sed 's/.*: *"\(.*\)"/\1/')
-          echo "build_from=${BUILD_FROM}" >> $GITHUB_OUTPUT
-          echo "tempio=${TEMPIO_VERSION}" >> $GITHUB_OUTPUT
-          echo "duplicati_version=${DUPLICATI_VERSION}" >> $GITHUB_OUTPUT
-          echo "duplicati_channel=${DUPLICATI_CHANNEL}" >> $GITHUB_OUTPUT
-          echo "duplicati_date=${DUPLICATI_DATE}" >> $GITHUB_OUTPUT
-
-      - name: Build test image
-        run: |
-          docker build \
-            --build-arg "BUILD_FROM=${{ steps.info.outputs.build_from }}" \
-            --build-arg "BUILD_ARCH=amd64" \
-            --build-arg "TEMPIO_VERSION=${{ steps.info.outputs.tempio }}" \
-            --build-arg "DUPLICATI_VERSION=${{ steps.info.outputs.duplicati_version }}" \
-            --build-arg "DUPLICATI_CHANNEL=${{ steps.info.outputs.duplicati_channel }}" \
-            --build-arg "DUPLICATI_DATE=${{ steps.info.outputs.duplicati_date }}" \
-            -t duplicati-test:latest \
-            -f duplicati/Dockerfile \
-            duplicati/
-
-      - name: Start container
-        run: |
-          mkdir -p /tmp/test-data/duplicati
-          docker run -d \
-            --name duplicati-test \
-            -p 8080:8080 \
-            -v /tmp/test-data:/data \
-            duplicati-test:latest
-
-      - name: Wait for services and health check
-        run: |
-          echo "Waiting for nginx to start..."
-          for i in $(seq 1 60); do
-            if curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/ | grep -qE "200|301|302|307"; then
-              echo "nginx is responding (attempt $i)"
-              break
-            fi
-            if [ $i -eq 60 ]; then
-              echo "Timeout waiting for nginx"
-              docker logs duplicati-test
-              exit 1
-            fi
-            sleep 2
-          done
-
-          # Wait for Duplicati API to be accessible through nginx
-          # (Duplicati .NET server takes longer to start than nginx)
-          echo "Waiting for Duplicati API..."
-          for i in $(seq 1 60); do
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/v1/serverstate)
-            if [[ "$HTTP_CODE" =~ ^(200|302|307|401|403)$ ]]; then
-              echo "Duplicati API accessible (HTTP ${HTTP_CODE}, attempt $i)"
-              break
-            fi
-            if [ $i -eq 60 ]; then
-              echo "Timeout waiting for Duplicati API (last HTTP ${HTTP_CODE})"
-              docker logs duplicati-test
-              exit 1
-            fi
-            sleep 2
-          done
-
-          echo "All health checks passed"
-
-      - name: Container logs on failure
-        if: failure()
-        run: docker logs duplicati-test 2>&1 || true
-
-      - name: Cleanup
-        if: always()
-        run: docker rm -f duplicati-test || true
+          python3 - <<'PY'
+          import json, os
+          jobs = json.loads(os.environ['RESULTS'])
+          assert jobs['discover']['result'] == 'success', jobs
+          assert all(job['result'] in ('success', 'skipped') for job in jobs.values()), jobs
+          PY

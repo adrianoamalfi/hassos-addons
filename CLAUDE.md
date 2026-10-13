@@ -1,138 +1,72 @@
-# CLAUDE.md
+# Repository guidance
 
-## Panoramica del Progetto
+Home Assistant app repository. Each top-level app directory is independent:
 
-Repository di add-on Home Assistant contenente **Duplicati**, un client di backup open-source con crittografia AES-256. L'add-on consente backup incrementali e compressi su cloud (S3, B2, Google Drive, Dropbox, OneDrive, Azure, FTP, SFTP, WebDAV, ecc.) con interfaccia web integrata in Home Assistant via ingress.
+- `duplicati/`: add-on 1.1.4, Duplicati 2.4.0.103 canary, .NET and nginx with S6.
+- `termix/`: experimental app 0.1.0, Termix 26.10.1, upstream Node/nginx image and HA wrapper.
 
-- **Maintainer**: Adriano Amalfi
-- **Licenza**: Apache 2.0
-- **Registry**: `ghcr.io/adrianoamalfi/{arch}-addon-duplicati`
-- **Repo**: https://github.com/adrianoamalfi/hassos-addons
+Both support amd64 and aarch64. Read each app's DOCS.md before changing its runtime.
 
-## Struttura del Progetto
+## Development
 
-```
-├── duplicati/                    # Add-on Duplicati
-│   ├── config.yaml               # Configurazione add-on HA (versione, porte, volumi, permessi)
-│   ├── build.yaml                # Base images e build args (DUPLICATI_VERSION, CHANNEL, DATE)
-│   ├── Dockerfile                # Installa Tempio, nginx e Duplicati .NET nativo
-│   ├── rootfs/                   # Filesystem overlay nel container
-│   │   ├── etc/services.d/duplicati/  # Script S6-overlay Duplicati (run, finish)
-│   │   ├── etc/services.d/nginx/      # Script S6-overlay nginx (run, finish)
-│   │   └── usr/bin/
-│   │       ├── start_duplicati        # Script avvio Duplicati server (porta 8200)
-│   │       └── start_nginx            # Script avvio nginx reverse proxy (porta 8080)
-│   ├── translations/             # Traduzioni UI (en.yaml, it.yaml)
-│   ├── apparmor.txt              # Profilo sicurezza AppArmor
-│   ├── CHANGELOG.md / DOCS.md / README.md
-│   └── icon.png / logo.png
-├── scripts/                      # Automazione locale
-│   ├── check-updates.sh          # Controlla nuove release Duplicati canary
-│   ├── bump-version.sh           # Aggiorna versione addon/Duplicati
-│   ├── local-build.sh            # Build Docker locale
-│   ├── local-test.sh             # Esegue container locale per test
-│   └── deploy-vm.sh              # Deploy addon su VM UTM con HA OS via rsync/SSH
-├── .github/workflows/
-│   ├── builder.yaml              # CI: build Docker multi-arch + push GHCR + test container
-│   ├── lint.yaml                 # CI: linting addon
-│   ├── release.yaml              # CI: crea GitHub Release su version bump
-│   ├── check-updates.yaml        # CI: controlla aggiornamenti Duplicati (daily), crea PR
-│   └── auto-approve.yaml         # CI: auto-approva i run dei PR di update generati da bot
-├── .github/CODEOWNERS
-├── .github/dependabot.yaml
-├── repository.yaml
-└── .devcontainer.json
-```
+Install `scripts/requirements.txt` in a virtualenv and set APP_PYTHON to its Python
+binary when invoking shell wrappers. All local commands default to Duplicati for
+compatibility and accept `--addon termix` or another discovered app.
 
-## Architetture Supportate
-
-amd64, aarch64 — base images Debian Bookworm da `ghcr.io/home-assistant/`.
-Mapping Duplicati: amd64→x64, aarch64→arm64.
-
-## Comandi di Sviluppo
-
-### Script locali
 ```bash
-./scripts/check-updates.sh                    # Controlla nuove release canary
-./scripts/bump-version.sh --version 1.2.0 --duplicati-version 2.2.0.107 --duplicati-date 2026-04-01
-./scripts/local-build.sh                      # Build Docker locale (auto-detect arch)
-./scripts/local-test.sh                       # Esegue su http://localhost:8080
-./scripts/deploy-vm.sh                        # Deploy su VM UTM (auto-detect IP da VM "HAOS")
-./scripts/deploy-vm.sh --ip 192.168.64.5      # IP manuale se auto-detect non disponibile
+./scripts/local-build.sh --addon termix
+./scripts/local-test.sh --addon termix --port 8081
+./scripts/bump-version.sh --addon termix --version 0.1.1 --message 'Describe changes.'
+./scripts/check-updates.sh --addon termix
+./scripts/deploy-vm.sh --addon termix --ip 192.168.64.2
+python scripts/apps.py test --addon termix
+python -m unittest discover -s tests -v
+node --test tests/termix-runtime.test.cjs
+python tests/test-termix-ingress.py
 ```
 
-### Dev container
-- **Immagine**: `ghcr.io/home-assistant/devcontainer:addons`
-- **Avvio HA locale**: `sudo -E supervisor_run`
-- **Porte**: 7123 (UI HA), 7357 (API)
+Ingress integration test uses the built `local/termix:latest` image and an isolated
+mock Supervisor on a temporary Docker network. It cleans up its containers/network.
+Automated smoke tests use disposable named volumes. Interactive local commands keep
+their named data volumes and expose only localhost ports.
 
-### CI/CD
-- **builder.yaml**: Push/PR su `main` (path: `duplicati/**`) + `workflow_dispatch`. Matrice 2 arch. Su `main` pubblica GHCR, su PR test (`--test`) + container startup test. Usa `home-assistant/builder@2026.03.2` (pinnato: i tag ≥ 2026.06.0 non hanno immagine builder pubblicata su ghcr.io, quindi i bump Dependabot rompono la build).
-- **lint.yaml**: Push/PR/schedule giornaliero. `frenck/action-addon-linter@v2.21.0`.
-- **release.yaml**: Push su `main` (path: `duplicati/config.yaml`). Se `version` cambia, crea GitHub Release con tag `duplicati-v{version}`.
-- **check-updates.yaml**: Schedule giornaliero + manual. Controlla canary su GitHub API, crea PR automatica se update disponibile e chiude i PR `update-duplicati-*` superati.
-- **auto-approve.yaml**: `pull_request_target` su `main`. Approva i workflow run `action_required` dei PR aperti da `github-actions[bot]` su branch `update-duplicati-*` (per i fork senza permessi workflow).
-- **Dependabot**: Aggiorna GitHub Actions e Docker base images settimanalmente. Ignora `home-assistant/builder` (vedi `builder.yaml`).
-- **CODEOWNERS**: `@adrianoamalfi` owner di tutti i file.
+## CI and releases
 
-## Convenzioni
+`builder.yaml` discovers apps from config.yaml, selects changed directories and
+builds/tests each app architecture using the Docker CLI. Shared tooling/workflow
+changes select all apps. An aggregate `App build checks` job is suitable for branch
+protection. Lint is included in Builder; `lint.yaml` also runs full lint daily.
 
-### Commit Messages
-Formato emoji-prefixed:
-- `feat ✨:` — nuove funzionalita
-- `fix 🐛:` — bug fix
-- `chore 📦:` — aggiornamento dipendenze
-- `⬆️ build(deps):` — bump dipendenze CI/Duplicati
+Only push events on main can publish. Only apps with changed versions, including
+new apps, publish tested image artifacts after all builds/tests/lint pass. Release
+jobs then create `{slug}-v{version}` tags. Manual Builder runs are read-only tests.
+Experimental app releases are prereleases. Do not overwrite a published app version
+for a runtime update: bump config.yaml and add its changelog section.
 
-### Versionamento
-Semantic Versioning. La versione addon e in `config.yaml`, la versione Duplicati in `build.yaml`.
+`check-updates.yaml` has independent Duplicati and Termix drivers in upstream.py.
+Termix stable updates require a multiarch image manifest and digest before PR
+preparation. Update PRs explicitly dispatch read-only Builder because bot-token
+events may not trigger follow-up workflows. No pull_request_target approval job.
 
-### Rilascio (automatizzato)
-1. `./scripts/bump-version.sh` per aggiornare versioni
-2. Commit e PR su `main`
-3. Merge triggera: build Docker → push GHCR → GitHub Release automatica
-4. Gli aggiornamenti Duplicati vengono proposti automaticamente via `check-updates.yaml`
+## Runtime constraints
 
-## Dettagli Tecnici
+Duplicati uses nginx :8080 -> Duplicati :8200. Its nginx generates a persistent
+PreAuth token and a frontend URL shim for ingress. Duplicati data stays under
+`/data/duplicati`, root-owned mode 700. Mounted HA folders are read/write, with
+`/backup` excluded from recursive add-on backups. AppArmor includes only the
+capabilities needed by Duplicati and its folder permissions.
 
-### Architettura Runtime
-```
-Browser → HA Ingress Proxy → nginx (:8080) → Duplicati (:8200)
-```
-- **nginx** su porta 8080 (ingress port): reverse proxy, PreAuth injection, JS shim per URL rewriting
-- **Duplicati** su porta 8200 (interno): server .NET nativo self-contained
-- **S6-overlay** gestisce entrambi i servizi (nginx + duplicati)
-- **Tempio** (v2024.11.2): template engine di Home Assistant
-- **Canale aggiornamento**: canary
-- **URL download**: `https://updates.duplicati.com/{channel}/duplicati-{VER}_{channel}_{DATE}-linux-{arch}-gui.deb`
+Termix uses its native BASE_PATH, obtained from `/addons/self/info` with the default
+Supervisor role. The wrapper removes the Supervisor token before running upstream
+services, adapts iframe policy and enforces ingress source IP using the actual peer
+address. Restore pristine frontend/nginx templates at every boot so prefix changes
+and restarts work. Keep Termix login enabled. No HA folder mounts or host privileges.
+Persistent Termix data and encryption keys stay together under `/data/termix`.
+Remote desktop needs guacd and is outside the initial supported feature set.
 
-### Ingress / nginx
-- PreAuth token generato al primo avvio, salvato in `/data/secrets.json`
-- nginx inietta `Authorization: PreAuth <token>` header verso Duplicati
-- JS shim (`ingress-fix.js`) patcha fetch/XHR/WebSocket per prefissare URL con ingress path
-- `X-Forwarded-Prefix` header abilita proxy-config nella nuova UI (ngclient)
-- `X-Allow-Iframe-Hosting` disabilita frame-busting per iframe HA
+## Conventions
 
-### Dati persistenti
-- `/data/duplicati/` — database, configurazione
-- `/data/duplicati/scripts/` — script utente
-- `/data/secrets.json` — pre-auth token
-
-### Volumi montati (tutti read-write)
-`config`, `ssl`, `media`, `addons`, `share`, `backup`
-
-### Sicurezza
-- Privilegio richiesto: `DAC_READ_SEARCH`
-- Profilo AppArmor personalizzato per Duplicati e nginx
-- Esclusione backup: `/backup` (evita ricorsione)
-
-### File chiave da modificare per aggiornamenti
-| Cosa aggiornare | File |
-|---|---|
-| Versione add-on | `duplicati/config.yaml` → `version` |
-| Versione Duplicati | `duplicati/build.yaml` → `args.DUPLICATI_VERSION` |
-| Canale Duplicati | `duplicati/build.yaml` → `args.DUPLICATI_CHANNEL` |
-| Data release Duplicati | `duplicati/build.yaml` → `args.DUPLICATI_DATE` |
-| Versione Tempio | `duplicati/build.yaml` → `args.TEMPIO_VERSION` |
-| Base image Debian | `duplicati/build.yaml` → `build_from` |
-| Changelog | `duplicati/CHANGELOG.md` |
+Use descriptive commits (`fix`, `feat`, `docs`, `ci`, `build(deps)`) and independent
+semantic app versions. Upstream versions live in each app's build.yaml. Preserve
+existing app behavior when modifying shared automation. See CONTRIBUTING.md and
+docs/PLAN-multi-app-termix.md for the architecture and remaining HAOS acceptance work.

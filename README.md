@@ -20,6 +20,13 @@ https://github.com/adrianoamalfi/hassos-addons
 
 ## Add-ons
 
+### [Termix](./termix)
+
+SSH terminals and file transfers through the Home Assistant panel, using Termix
+26.10.1. Supports amd64 and aarch64. Experimental: HAOS ingress and backup acceptance
+checks are still required. Termix login remains enabled; remote desktop requires a
+separate guacd service. See [Termix documentation](./termix/DOCS.md).
+
 ### [Duplicati](./duplicati)
 
 ![Supports amd64 Architecture][amd64-shield]
@@ -38,6 +45,31 @@ Store securely encrypted, incremental, compressed backups on cloud storage servi
 
 - [Open an issue](https://github.com/adrianoamalfi/hassos-addons/issues/new/choose) for bugs or feature requests
 - [Discussions](https://github.com/adrianoamalfi/hassos-addons/discussions) for questions and general help
+
+## Development
+
+Each app lives in its own top-level directory. Discovery reads `config.yaml`; CI
+builds and tests the selected app for each declared architecture. Changes to shared
+scripts or workflows verify every app. Version bumps publish the tested images,
+then create independent releases such as `duplicati-v1.1.4` and `termix-v0.1.0`.
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r scripts/requirements.txt
+export APP_PYTHON="$PWD/.venv/bin/python"
+./scripts/local-build.sh --addon termix
+./scripts/local-test.sh --addon termix --port 8081
+./scripts/deploy-vm.sh --addon termix --ip 192.168.64.2
+```
+
+Local test containers expose their UI on localhost only. Termix local test mode
+disables ingress IP filtering explicitly; Supervisor installations always enable it.
+Local app data uses a named Docker volume by default; `--data-dir` opts into a host
+directory. Duplicati also starts a small Supervisor metadata fixture for Bashio.
+Automated checks use `"$APP_PYTHON" scripts/apps.py test --addon termix`. Upstream updates
+use `./scripts/check-updates.sh --addon termix`; Duplicati remains the default.
+
+See [contributor instructions](CONTRIBUTING.md) for adding another app.
 
 ## License
 

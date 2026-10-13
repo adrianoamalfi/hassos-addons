@@ -1,0 +1,12 @@
+name: Set up app tooling
+description: Install the Python runtime and YAML parser used by app automation
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v6
+      with:
+        python-version: "3.13"
+        cache: pip
+        cache-dependency-path: scripts/requirements.txt
+    - shell: bash
+      run: python -m pip install -r scripts/requirements.txt
