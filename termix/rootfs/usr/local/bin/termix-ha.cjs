@@ -40,7 +40,11 @@ function prepareFrontend(directory) {
       if (entry.isDirectory()) rewrite(file);
       else if (/\.(js|html|json)$/.test(entry.name)) {
         const source = fs.readFileSync(file, 'utf8');
-        fs.writeFileSync(file, source.replace(/[A-Za-z0-9_-]+\.js\b/g, name => names.get(name) || name));
+        let adapted = source.replace(/[A-Za-z0-9_-]+\.js\b/g, name => names.get(name) || name);
+        const notice = 'Modified for Home Assistant ingress; see /usr/share/licenses/termix-ha/NOTICE.';
+        if (entry.name.endsWith('.js')) adapted = `/* ${notice} */\n` + adapted;
+        if (entry.name.endsWith('.html')) adapted = `<!-- ${notice} -->\n` + adapted;
+        fs.writeFileSync(file, adapted);
       }
     }
   }
@@ -75,7 +79,7 @@ function nginxTemplate(template, localTest) {
   if (!template.includes("frame-ancestors 'none'") || !template.includes('X-Frame-Options "DENY"')) {
     throw new Error('Upstream iframe policy changed; review ingress compatibility');
   }
-  return template
+  return '# Modified for Home Assistant ingress; see /usr/share/licenses/termix-ha/NOTICE.\n' + template
     // Ingress ACL must use the actual peer, never a client-supplied forwarded IP.
     .replace(/^\s*(?:set_real_ip_from|real_ip_header|real_ip_recursive)\s+[^;]+;\s*$/gm, '')
     .replaceAll("frame-ancestors 'none'", "frame-ancestors 'self'")
@@ -102,6 +106,7 @@ async function main() {
   // Redirect those paths too, rather than relying solely on DATA_DIR.
   let entrypoint = fs.readFileSync('/entrypoint.sh', 'utf8');
   entrypoint = entrypoint.replaceAll('/app/data', '/data/termix');
+  entrypoint = entrypoint.replace(/^(#![^\n]*\n)/, '$1# Modified for Home Assistant persistent storage; see /usr/share/licenses/termix-ha/NOTICE.\n');
   entrypoint = entrypoint.replace('chmod 755 /data/termix /app/uploads',
     'chmod 700 /data/termix; chmod 755 /app/uploads');
   fs.writeFileSync('/tmp/termix-entrypoint.sh', entrypoint, { mode: 0o755 });

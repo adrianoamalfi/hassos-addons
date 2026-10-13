@@ -12,6 +12,34 @@ new Server({ hostKeys: [privateKey.export({ type: 'pkcs1', format: 'pem' })] }, 
     client.on('session', accept => {
       const session = accept();
       session.on('pty', acceptPty => acceptPty());
+      // Read-only, synthetic SFTP tree for documentation screenshots.
+      session.on('sftp', acceptSftp => {
+        const sftp = acceptSftp();
+        const files = { '/config/configuration.yaml': '# Demonstration only\ndefault_config:\n',
+          '/config/automations.yaml': '[]\n', '/share/README.txt': 'Synthetic Home Assistant demo files.\n' };
+        const dirs = ['/', '/config', '/share'];
+        const attrs = p => ({ mode: dirs.includes(p) ? 0o40755 : 0o100644,
+          uid: 0, gid: 0, size: files[p]?.length || 0, atime: 1700000000, mtime: 1700000000 });
+        const handles = new Map(); let next = 0;
+        const handle = value => { const h = Buffer.from(String(++next)); handles.set(h.toString(), value); return h; };
+        const normalize = p => p === '.' ? '/' : p.replace(/\/$/, '') || '/';
+        sftp.on('REALPATH', (id, p) => { p = normalize(p); sftp.name(id, [{ filename: p, longname: p, attrs: attrs(p) }]); });
+        for (const event of ['STAT', 'LSTAT']) sftp.on(event, (id, p) => {
+          p = normalize(p); if (dirs.includes(p) || files[p] !== undefined) sftp.attrs(id, attrs(p)); else sftp.status(id, 2);
+        });
+        sftp.on('OPENDIR', (id, p) => { p = normalize(p); if (dirs.includes(p)) sftp.handle(id, handle({ path: p, read: false })); else sftp.status(id, 2); });
+        sftp.on('READDIR', (id, h) => {
+          const item = handles.get(h.toString()); if (!item || item.read) return sftp.status(id, 1);
+          item.read = true;
+          const base = item.path === '/' ? '/' : item.path + '/';
+          const entries = [...dirs.slice(1), ...Object.keys(files)].filter(p => p.startsWith(base) && !p.slice(base.length).includes('/'));
+          sftp.name(id, entries.map(p => ({ filename: p.slice(base.length), longname: p.slice(base.length), attrs: attrs(p) })));
+        });
+        sftp.on('OPEN', (id, p, flags) => { p = normalize(p); if (flags !== 1) return sftp.status(id, 3); if (files[p] === undefined) return sftp.status(id, 2); sftp.handle(id, handle({ path: p })); });
+        sftp.on('READ', (id, h, offset, length) => { const item = handles.get(h.toString()); const data = item && Buffer.from(files[item.path] || ''); if (!data) return sftp.status(id, 2); if (offset >= data.length) return sftp.status(id, 1); sftp.data(id, data.subarray(offset, offset + length)); });
+        sftp.on('CLOSE', (id, h) => { handles.delete(h.toString()); sftp.status(id, 0); });
+        sftp.on('FSTAT', (id, h) => { const item = handles.get(h.toString()); if (item) sftp.attrs(id, attrs(item.path)); else sftp.status(id, 2); });
+      });
       session.on('shell', acceptShell => {
         const stream = acceptShell();
         stream.write('Termix SSH fixture connected\r\nfixture$ ');
@@ -19,7 +47,7 @@ new Server({ hostKeys: [privateKey.export({ type: 'pkcs1', format: 'pem' })] }, 
       });
       session.on('exec', (acceptExec, reject, info) => {
         const stream = acceptExec();
-        stream.write(`Fixture command received: ${info.command}\n`);
+        stream.write(info.command.trim() === 'pwd' ? '/\n' : `Fixture command received: ${info.command}\n`);
         stream.exit(0); stream.end();
       });
     });

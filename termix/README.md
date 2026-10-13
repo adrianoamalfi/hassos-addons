@@ -1,5 +1,10 @@
 # Termix for Home Assistant
 
+![Termix](logo.png)
+
+Independent integration of [Termix](https://github.com/Termix-SSH/Termix) for Home
+Assistant. Maintains Termix's official visual identity; no upstream endorsement is implied.
+
 Manage SSH hosts, open interactive terminals and transfer files from Home Assistant.
 Supports amd64 and aarch64. This app is experimental until its complete ingress and
 backup flow has been verified on HAOS.
@@ -12,4 +17,18 @@ Termix accounts control access to hosts and credentials. No LAN port is publishe
 
 See [configuration and backup instructions](DOCS.md).
 
+## Screenshots
+
+Captured from Termix 26.10.1 through the local ingress test fixture. Hosts,
+credentials and files are synthetic; these are not screenshots of a private HA installation.
+
+![Dashboard](screenshots/dashboard.jpg)
+![SSH terminal](screenshots/terminal.jpg)
+![SFTP file manager](screenshots/files.jpg)
+
+Use the [Home Assistant connection guide](HOME_ASSISTANT.md) for Terminal & SSH
+and Advanced SSH & Web Terminal, including key authentication and read-only snippets.
+
 Upstream: [Termix](https://github.com/Termix-SSH/Termix), Apache License 2.0.
+Copyright 2026 Luke Gustafson. See [LICENSE](LICENSE) and [attributions and modifications](NOTICE).
+See [licensing review and remaining release checks](LICENSE_REVIEW.md).

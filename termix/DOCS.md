@@ -1,5 +1,7 @@
 # Termix configuration
 
+For SSH access to Home Assistant itself, follow [the connection guide](HOME_ASSISTANT.md).
+
 ## First startup
 
 Open the app through Home Assistant ingress, create the administrator account and

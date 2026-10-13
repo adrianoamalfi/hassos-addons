@@ -79,14 +79,27 @@ sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori pro
 
 ## Verifiche ancora necessarie
 
-- Installazione dal repository e apertura attraverso il Supervisor HAOS reale.
+- Installazione delle immagini pubblicate dal repository (la prova HAOS usa una build locale).
 - Backup/restore gestito da Home Assistant e aggiornamento dell'app installata.
 - Upload/download SFTP verso un host reale e sessione SSH prolungata.
 
-La VM locale HAOS 17.1 è stata avviata per la prova, ma SSH sulla porta 22 non era
-disponibile. Nessuna app è stata installata nella VM; la VM è stata riportata allo
-stato spento. Le prove completate sul proxy simulato non sostituiscono questi
-controlli di installazione sul Supervisor reale.
+La VM locale HAOS 17.1 è stata successivamente avviata tramite UTM. Termix 0.1.0
+è stato installato come `local_termix` attraverso il Supervisor e il guest agent,
+con build locale e apertura ingress riuscite. L'utente ha confermato il funzionamento.
+La VM resta accesa per le prove. Backup/restore Supervisor e trasferimenti SFTP
+verso un host reale restano da verificare.
+
+## Qualità e documentazione — 0.1.1
+
+- Icona e logo derivati dal SVG ufficiale, con attribuzioni e licenza upstream.
+- Licenza e NOTICE nell'immagine; avvisi nei file upstream adattati.
+- Guide per Terminal & SSH e Advanced SSH & Web Terminal, con autenticazione a
+  chiave e catalogo manuale di comandi HA di sola lettura.
+- Screenshot reali della UI: dashboard, terminale e SFTP su fixture sintetica.
+- Build e test runtime aarch64, 7 test Python, 5 Node e integrazione ingress riusciti.
+
+La revisione delle dipendenze ha rilevato verifiche ancora aperte su alcune licenze
+e librerie native. Vedere `termix/LICENSE_REVIEW.md`; la PR resta draft.
 
 ## Comandi per provare Termix
 

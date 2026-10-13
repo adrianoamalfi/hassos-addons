@@ -1,5 +1,5 @@
 name: Termix
-version: "0.1.0"
+version: "0.1.1"
 slug: termix
 description: Manage remote servers with SSH terminals and file transfers.
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/termix"
