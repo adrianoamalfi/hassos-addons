@@ -80,14 +80,13 @@ sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori pro
 ## Verifiche ancora necessarie
 
 - Installazione delle immagini pubblicate dal repository (la prova HAOS usa una build locale).
-- Backup/restore gestito da Home Assistant e aggiornamento dell'app installata.
-- Upload/download SFTP verso un host reale e sessione SSH prolungata.
+- Verifica finale delle immagini pubblicate dal repository su HAOS.
 
 La VM locale HAOS 17.1 è stata successivamente avviata tramite UTM. Termix 0.1.0
 è stato installato come `local_termix` attraverso il Supervisor e il guest agent,
 con build locale e apertura ingress riuscite. L'utente ha confermato il funzionamento.
-La VM resta accesa per le prove. Backup/restore Supervisor e trasferimenti SFTP
-verso un host reale restano da verificare.
+La VM resta accesa per le prove. Le verifiche successive di backup/restore
+Supervisor e trasferimento SFTP sono documentate nella sezione seguente.
 
 ## Qualità e documentazione — 0.1.1
 
@@ -98,8 +97,18 @@ verso un host reale restano da verificare.
 - Screenshot reali della UI: dashboard, terminale e SFTP su fixture sintetica.
 - Build e test runtime aarch64, 7 test Python, 5 Node e integrazione ingress riusciti.
 
-La revisione delle dipendenze ha rilevato verifiche ancora aperte su alcune licenze
-e librerie native. Vedere `termix/LICENSE_REVIEW.md`; la PR resta draft.
+La revisione ha recuperato gli avvisi delle dipendenze npm, del frontend, dei plugin,
+di Node e delle librerie native, con riferimenti ai sorgenti e verifica dei checksum.
+Il binario opzionale OPKSSH è escluso per una dipendenza senza licenza nel tag
+distribuito. Un controllo di build blocca cambiamenti delle versioni inventariate.
+Vedere `termix/LICENSE_REVIEW.md` per il perimetro e i materiali di redistribuzione.
+
+Il backup parziale Supervisor e il ripristino di `local_termix` sono riusciti su
+HAOS 17.1: un marcatore modificato dopo il backup è tornato al contenuto originale
+e la salute dell'app è tornata HTTP 200. I backup restano disponibili nella VM.
+SSH exec e upload/download SFTP sono riusciti da Termix contro un server OpenSSH
+reale e temporaneo sulla rete interna HAOS, con fingerprint verificato e confronto
+dei contenuti. Server e marcatore sono stati rimossi.
 
 ## Comandi per provare Termix
 

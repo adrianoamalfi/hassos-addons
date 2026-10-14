@@ -1,0 +1,277 @@
+{
+  "upstream": "26.10.1",
+  "plugins": [
+    {
+      "id": "acme-ssl",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-ACME-SSL",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-ACME-SSL/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "ai",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-AI",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-AI/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "alerts",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Alerts",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Alerts/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "automations",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Automations",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Automations/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "docker",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Docker",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Docker/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "file-manager",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-File-Manager",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-File-Manager/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "fleets",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Fleets",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Fleets/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "homepage",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Homepage",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Homepage/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "host-metrics",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-Host-Metrics",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Host-Metrics/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "ldap",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-LDAP",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-LDAP/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "network-topology",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Network-Topology",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Network-Topology/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "opkssh",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-OPKSSH",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-OPKSSH/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "proxmox",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Proxmox",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Proxmox/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "remote-desktop",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-Remote-Desktop",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Remote-Desktop/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "secret-sources",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Secret-Sources",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Secret-Sources/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "serial",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Serial",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Serial/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "session-recording",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Session-Recording",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Session-Recording/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "session-sharing",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Session-Sharing",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Session-Sharing/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "snippets",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Snippets",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Snippets/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "ssh-terminal",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-SSH-Terminal",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-SSH-Terminal/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "sso",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-SSO",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-SSO/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "step-ca",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Step-CA",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Step-CA/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "tailscale",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Tailscale",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Tailscale/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "telemetry",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Telemetry",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Telemetry/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "termix-identity",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Termix-Identity",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Termix-Identity/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "tmux-monitor",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-Tmux-Monitor",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Tmux-Monitor/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "totp",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-TOTP",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-TOTP/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "tunnels",
+      "version": "1.0.2",
+      "repository": "https://github.com/Termix-SSH/Plugin-Tunnels",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Tunnels/v1.0.2/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "vault",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Vault",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Vault/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "wake-on-lan",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Wake-On-LAN",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Wake-On-LAN/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "warpgate",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Warpgate",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Warpgate/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "web-endpoint",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Web-Endpoint",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Web-Endpoint/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "webauthn",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-WebAuthn",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-WebAuthn/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    {
+      "id": "workspaces",
+      "version": "1.0.1",
+      "repository": "https://github.com/Termix-SSH/Plugin-Workspaces",
+      "license": "Apache-2.0",
+      "license_source": "https://raw.githubusercontent.com/Termix-SSH/Plugin-Workspaces/v1.0.1/LICENSE",
+      "license_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    }
+  ]
+}

@@ -15,6 +15,11 @@ then install the SSH and file management plugins through Termix.
 Termix authentication remains enabled. Home Assistant controls access to the panel;
 Termix accounts control access to hosts and credentials. No LAN port is published.
 
+The optional OPKSSH binary is not bundled: its Go dependency
+`github.com/yeqown/reedsolomon@v1.0.0` has no license in the distributed source tag.
+OPKSSH requires a separately obtained upstream binary. Ordinary SSH key and
+password authentication and SFTP do not require OPKSSH.
+
 See [configuration and backup instructions](DOCS.md).
 
 ## Screenshots

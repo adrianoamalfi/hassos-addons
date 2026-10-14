@@ -1,7 +1,7 @@
 name: Termix
 version: "0.1.1"
 slug: termix
-description: Manage remote servers with SSH terminals and file transfers.
+description: Independent Termix integration for SSH terminals and file transfers.
 url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/termix"
 arch:
   - amd64

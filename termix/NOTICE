@@ -18,6 +18,8 @@ Modifications made by this integration:
 - Same-origin iframe policy and connection-based ingress IP restrictions.
 - Adaptation of the frontend desktop-auth iframe detection.
 - Renaming of adapted frontend modules to avoid stale browser caches.
+- Restoration of omitted dependency and plugin SDK licensing notices.
+- Exclusion of the optional OPKSSH binary pending dependency licensing clarification.
 
 Upstream entrypoint, nginx templates and adapted JavaScript modules are modified
 at startup. Original templates are retained in /usr/local/share/termix.
@@ -26,3 +28,6 @@ https://github.com/adrianoamalfi/hassos-addons/tree/main/termix
 
 Third-party components retain their own licenses and notices. The Apache-2.0
 image label describes this integration and Termix, not every component of the image.
+Supplemental notices, integrity-verified source inventories and source access
+instructions are included under /usr/share/licenses/termix-ha/third-party/ and
+in the repository's termix/licenses directory.
