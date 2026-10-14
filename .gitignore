@@ -16,3 +16,7 @@
 
 # Local test data
 /tmp/
+# Local development tools
+.venv/
+__pycache__/
+*.pyc

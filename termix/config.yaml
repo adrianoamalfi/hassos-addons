@@ -1,0 +1,16 @@
+name: Termix
+version: "0.1.1"
+slug: termix
+description: Independent Termix integration for SSH terminals and file transfers.
+url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/termix"
+arch:
+  - amd64
+  - aarch64
+stage: experimental
+boot: manual
+backup: cold
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:console-network
+hassio_api: true
+image: "ghcr.io/adrianoamalfi/{arch}-addon-termix"

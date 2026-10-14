@@ -1,0 +1,849 @@
+{
+  "upstream": "26.10.1",
+  "coverage": [
+    {
+      "name": "@drizzle-team/brocli",
+      "version": "0.10.2",
+      "license": "Apache-2.0",
+      "author": "Drizzle Team",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/drizzle-team/brocli.git"
+      },
+      "source": "https://registry.npmjs.org/@drizzle-team/brocli/-/brocli-0.10.2.tgz",
+      "paths": [
+        "node_modules/@drizzle-team/brocli"
+      ],
+      "covered_by": "../LICENSE",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "@esbuild/aix-ppc64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/aix-ppc64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/android-arm",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/android-arm"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/android-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/android-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/android-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/android-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/freebsd-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/freebsd-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-ia32",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-ia32"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/darwin-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/darwin-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/freebsd-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/freebsd-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-loong64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-loong64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-ppc64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-ppc64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-mips64el",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-mips64el"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-riscv64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-riscv64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/netbsd-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/netbsd-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/openbsd-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/openbsd-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-s390x",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-s390x"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/netbsd-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/netbsd-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/openbsd-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/openbsd-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-arm",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-arm"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/openharmony-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/openharmony-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/darwin-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/darwin-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/win32-ia32",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/win32-ia32"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/win32-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/win32-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/sunos-x64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/sunos-x64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/win32-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/win32-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@esbuild/linux-arm64",
+      "version": "0.28.2",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/evanw/esbuild.git"
+      },
+      "source": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.2.tgz",
+      "paths": [
+        "node_modules/@esbuild/linux-arm64"
+      ],
+      "covered_by": "esbuild-LICENSE",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-android-arm64",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-android-arm64"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-arm-gnueabihf",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-arm-gnueabihf"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-arm64-musl",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-arm64-musl"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-darwin-arm64",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-darwin-arm64"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-freebsd-x64",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-freebsd-x64"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-android-arm-eabi",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-android-arm-eabi"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-arm64-gnu",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-arm64-gnu"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-ppc64-gnu",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-ppc64-gnu"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-x64-gnu"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-s390x-gnu",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-s390x-gnu"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-linux-x64-musl",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-linux-x64-musl"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-openharmony-arm64",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-openharmony-arm64"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-win32-x64-msvc"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-darwin-x64",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-darwin-x64"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "@rolldown/binding-win32-arm64-msvc",
+      "version": "1.2.12",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rolldown/rolldown.git",
+        "directory": "packages/rolldown"
+      },
+      "source": "https://registry.npmjs.org/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.12.tgz",
+      "paths": [
+        "node_modules/@rolldown/binding-win32-arm64-msvc"
+      ],
+      "covered_by": "dependencies-NOTICES.md#notice-23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734",
+      "basis": "Same-version native binding, parent project license"
+    },
+    {
+      "name": "undici-types",
+      "version": "5.26.5",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nodejs/undici.git"
+      },
+      "source": "https://registry.npmjs.org/undici-types/-/undici-types-5.26.5.tgz",
+      "paths": [
+        "node_modules/@types/ssh2/node_modules/undici-types"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "chromium-pickle-js",
+      "version": "0.2.0",
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/electron/node-chromium-pickle-js.git"
+      },
+      "source": "https://registry.npmjs.org/chromium-pickle-js/-/chromium-pickle-js-0.2.0.tgz",
+      "paths": [
+        "node_modules/chromium-pickle-js"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "dmg-builder",
+      "version": "26.15.3",
+      "license": "MIT",
+      "author": "Vladimir Krivosheev",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/electron-userland/electron-builder.git",
+        "directory": "packages/dmg-builder"
+      },
+      "source": "https://registry.npmjs.org/dmg-builder/-/dmg-builder-26.15.3.tgz",
+      "paths": [
+        "node_modules/dmg-builder"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "drizzle-orm",
+      "version": "0.45.3",
+      "license": "Apache-2.0",
+      "author": "Drizzle Team",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/drizzle-team/drizzle-orm.git"
+      },
+      "source": "https://registry.npmjs.org/drizzle-orm/-/drizzle-orm-0.45.3.tgz",
+      "paths": [
+        "node_modules/drizzle-orm"
+      ],
+      "covered_by": "../LICENSE",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "drizzle-kit",
+      "version": "0.31.11",
+      "license": "MIT",
+      "author": "Drizzle Team",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/drizzle-team/drizzle-orm.git"
+      },
+      "source": "https://registry.npmjs.org/drizzle-kit/-/drizzle-kit-0.31.11.tgz",
+      "paths": [
+        "node_modules/drizzle-kit"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "filelist",
+      "version": "1.0.6",
+      "license": "Apache-2.0",
+      "author": "Matthew Eernisse <mde@fleegix.org> (http://fleegix.org)",
+      "repository": {
+        "type": "git",
+        "url": "git://github.com/mde/filelist.git"
+      },
+      "source": "https://registry.npmjs.org/filelist/-/filelist-1.0.6.tgz",
+      "paths": [
+        "node_modules/filelist"
+      ],
+      "covered_by": "../LICENSE",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "lazy-val",
+      "version": "1.0.5",
+      "license": "MIT",
+      "author": "Vladimir Krivosheev",
+      "repository": "develar/lazy-val",
+      "source": "https://registry.npmjs.org/lazy-val/-/lazy-val-1.0.5.tgz",
+      "paths": [
+        "node_modules/lazy-val"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "node-api-version",
+      "version": "0.2.1",
+      "license": "MIT",
+      "author": "Tim Fish <tim@timfish.uk>",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/timfish/node-api-version"
+      },
+      "source": "https://registry.npmjs.org/node-api-version/-/node-api-version-0.2.1.tgz",
+      "paths": [
+        "node_modules/node-api-version"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "saxes",
+      "version": "6.0.0",
+      "license": "ISC",
+      "author": "Louis-Dominique Dubeau <ldd@lddubeau.com>",
+      "repository": "https://github.com/lddubeau/saxes.git",
+      "source": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
+      "paths": [
+        "node_modules/saxes"
+      ],
+      "covered_by": "ISC.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "stackback",
+      "version": "0.0.2",
+      "license": "MIT",
+      "author": "Roman Shtylman <shtylman@gmail.com>",
+      "repository": {
+        "type": "git",
+        "url": "git://github.com/shtylman/node-stackback.git"
+      },
+      "source": "https://registry.npmjs.org/stackback/-/stackback-0.0.2.tgz",
+      "paths": [
+        "node_modules/stackback"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "temp-file",
+      "version": "3.4.0",
+      "license": "MIT",
+      "author": "Vladimir Krivosheev",
+      "repository": "develar/temp-file",
+      "source": "https://registry.npmjs.org/temp-file/-/temp-file-3.4.0.tgz",
+      "paths": [
+        "node_modules/temp-file"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "tmp-promise",
+      "version": "3.0.3",
+      "license": "MIT",
+      "author": "Benjamin Gruenbaum and Collaborators.",
+      "repository": {
+        "type": "git",
+        "url": "git://github.com/benjamingr/tmp-promise.git"
+      },
+      "source": "https://registry.npmjs.org/tmp-promise/-/tmp-promise-3.0.3.tgz",
+      "paths": [
+        "node_modules/tmp-promise"
+      ],
+      "covered_by": "MIT.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    },
+    {
+      "name": "truncate-utf8-bytes",
+      "version": "1.0.2",
+      "license": "WTFPL",
+      "author": "Carl Xiong <xiongc05@gmail.com>",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/parshap/truncate-utf8-bytes.git"
+      },
+      "source": "https://registry.npmjs.org/truncate-utf8-bytes/-/truncate-utf8-bytes-1.0.2.tgz",
+      "paths": [
+        "node_modules/truncate-utf8-bytes"
+      ],
+      "covered_by": "WTFPL.txt",
+      "basis": "Explicit SPDX license declaration in integrity-verified package manifest; author metadata retained. Standard text accompanies declaration. No invented copyright date or owner."
+    }
+  ]
+}

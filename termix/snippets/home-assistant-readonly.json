@@ -1,0 +1,10 @@
+{
+  "description": "Read-only commands for the Home Assistant CLI inside a supported SSH app. Manually copy commands into Termix Snippets; this is not an upstream import format.",
+  "snippets": [
+    {"name": "Home Assistant status", "command": "ha info"},
+    {"name": "Core status", "command": "ha core info"},
+    {"name": "Supervisor status", "command": "ha supervisor info"},
+    {"name": "Installed apps", "command": "ha apps list"},
+    {"name": "Backup list", "command": "ha backups list"}
+  ]
+}
