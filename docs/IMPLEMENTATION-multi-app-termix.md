@@ -77,10 +77,21 @@ supporto iniziale.
 I test usano account, chiavi e host sintetici. Container, reti e volumi temporanei
 sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori prove.
 
-## Verifiche ancora necessarie
+## Pubblicazione verificata
 
-- Installazione delle immagini pubblicate dal repository (la prova HAOS usa una build locale).
-- Verifica finale delle immagini pubblicate dal repository su HAOS.
+La PR #108 è stata unita a `main`. La pipeline
+https://github.com/adrianoamalfi/hassos-addons/actions/runs/38519181159
+ha completato build, test, lint, pubblicazione e release con esito positivo.
+Release sperimentale:
+https://github.com/adrianoamalfi/hassos-addons/releases/tag/termix-v0.1.1.
+
+Manifest e tutti i layer delle immagini amd64 e aarch64 sono accessibili senza
+autenticazione (HTTP 200). Lo store HAOS rileva `3aef905c_termix`, disponibile a
+versione 0.1.1. L'installazione dal repository e l'avvio dell'immagine pubblicata
+sono riusciti: backend e frontend HTTP 200, prefisso ingress e policy iframe validi.
+L'app del repository è stata lasciata installata ma ferma dopo la verifica;
+`local_termix` resta avviato alla versione 0.1.1. Le due installazioni hanno dati
+separati; nessuna migrazione dei dati è stata eseguita.
 
 La VM locale HAOS 17.1 è stata successivamente avviata tramite UTM. Termix 0.1.0
 è stato installato come `local_termix` attraverso il Supervisor e il guest agent,
