@@ -110,6 +110,12 @@ SSH exec e upload/download SFTP sono riusciti da Termix contro un server OpenSSH
 reale e temporaneo sulla rete interna HAOS, con fingerprint verificato e confronto
 dei contenuti. Server e marcatore sono stati rimossi.
 
+L'aggiornamento Supervisor da 0.1.0 a 0.1.1 è riuscito con backup preventivo:
+`local_termix` è avviato e la salute risponde HTTP 200. Le immagini finali copiano
+il filesystem sanificato in un'immagine nuova, così il binario OPKSSH escluso
+non rimane nei layer OCI distribuiti. Test di avvio su entrambe le architetture
+e integrazione ingress sono riusciti anche su queste immagini finali.
+
 ## Comandi per provare Termix
 
 ```bash

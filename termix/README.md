@@ -6,8 +6,8 @@ Independent integration of [Termix](https://github.com/Termix-SSH/Termix) for Ho
 Assistant. Maintains Termix's official visual identity; no upstream endorsement is implied.
 
 Manage SSH hosts, open interactive terminals and transfer files from Home Assistant.
-Supports amd64 and aarch64. This app is experimental until its complete ingress and
-backup flow has been verified on HAOS.
+Supports amd64 and aarch64. This app remains experimental while compatibility is
+validated on more HAOS installations.
 
 Install Termix from this repository and open its panel. Create a Termix account,
 then install the SSH and file management plugins through Termix.
