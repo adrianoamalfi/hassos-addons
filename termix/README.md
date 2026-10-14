@@ -1,6 +1,6 @@
 # Termix for Home Assistant
 
-![Termix](logo.png)
+![Termix](https://raw.githubusercontent.com/adrianoamalfi/hassos-addons/main/termix/logo.png)
 
 Independent integration of [Termix](https://github.com/Termix-SSH/Termix) for Home
 Assistant. Maintains Termix's official visual identity; no upstream endorsement is implied.
@@ -27,9 +27,9 @@ See [configuration and backup instructions](DOCS.md).
 Captured from Termix 26.10.1 through the local ingress test fixture. Hosts,
 credentials and files are synthetic; these are not screenshots of a private HA installation.
 
-![Dashboard](screenshots/dashboard.jpg)
-![SSH terminal](screenshots/terminal.jpg)
-![SFTP file manager](screenshots/files.jpg)
+![Dashboard](https://raw.githubusercontent.com/adrianoamalfi/hassos-addons/main/termix/screenshots/dashboard.jpg)
+![SSH terminal](https://raw.githubusercontent.com/adrianoamalfi/hassos-addons/main/termix/screenshots/terminal.jpg)
+![SFTP file manager](https://raw.githubusercontent.com/adrianoamalfi/hassos-addons/main/termix/screenshots/files.jpg)
 
 Use the [Home Assistant connection guide](HOME_ASSISTANT.md) for Terminal & SSH
 and Advanced SSH & Web Terminal, including key authentication and read-only snippets.
