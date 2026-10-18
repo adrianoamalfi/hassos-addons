@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Update Termix to v26.10.2.
+
 ## 0.1.1
 
 - Official Termix icon and logo with source attribution and Apache 2.0 license.
