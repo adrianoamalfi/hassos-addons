@@ -1,28 +1,45 @@
 name: Lint
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "duplicati/**"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "duplicati/**"
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      addons: ${{ steps.apps.outputs.addons }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup-apps
+      - id: apps
+        run: python3 scripts/apps.py select --event-file "$GITHUB_EVENT_PATH" --github-output "$GITHUB_OUTPUT"
   lint:
-    name: Lint duplicati add-on
+    needs: discover
+    if: needs.discover.outputs.addons != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        addon: ${{ fromJSON(needs.discover.outputs.addons) }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: frenck/action-addon-linter@v2.21.1
+        with:
+          path: ./${{ matrix.addon }}
+  result:
+    name: App lint checks
+    if: always()
+    needs: [discover, lint]
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code from GitHub
-        uses: actions/checkout@v7.0.1
-
-      - name: Run Home Assistant Add-on Lint
-        uses: frenck/action-addon-linter@v2.21.1
-        with:
-          path: "./duplicati"
+      - env:
+          DISCOVERY: ${{ needs.discover.result }}
+          LINT: ${{ needs.lint.result }}
+        run: test "$DISCOVERY" = success && { test "$LINT" = success || test "$LINT" = skipped; }

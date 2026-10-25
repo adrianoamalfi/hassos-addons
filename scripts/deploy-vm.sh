@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy the Duplicati addon to a UTM/VM running Home Assistant OS
+# Deploy one app to a UTM/VM running Home Assistant OS
 # Usage: ./scripts/deploy-vm.sh [--ip 192.168.x.x]
 #
 # This script syncs the addon source code to the HA VM's local addons folder
@@ -17,13 +17,15 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-ADDON_DIR="${REPO_ROOT}/duplicati"
+ADDON="duplicati"
 VM_USER="root"
 VM_ADDONS_PATH="/root/addons"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --addon)
+            ADDON="$2"; shift 2 ;;
         --ip)
             VM_IP="$2"; shift 2 ;;
         --user)
@@ -31,7 +33,7 @@ while [[ $# -gt 0 ]]; do
         --path)
             VM_ADDONS_PATH="$2"; shift 2 ;;
         -h|--help)
-            echo "Usage: $0 [--ip <vm-ip>] [--user <ssh-user>] [--path <remote-addons-path>]"
+            echo "Usage: $0 [--addon <app>] [--ip <vm-ip>] [--user <ssh-user>] [--path <remote-addons-path>]"
             echo ""
             echo "Options:"
             echo "  --ip      VM IP address (or set VM_IP env var)"
@@ -51,6 +53,14 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if [[ ! "$ADDON" =~ ^[a-z0-9_-]+$ ]] || [[ ! -f "${REPO_ROOT}/${ADDON}/config.yaml" ]]; then
+    echo "Unknown app: $ADDON"; exit 1
+fi
+if [[ ! "$VM_USER" =~ ^[a-z_][a-z0-9_-]*$ ]] || [[ ! "$VM_ADDONS_PATH" =~ ^/[a-zA-Z0-9_/-]+$ ]]; then
+    echo "Unsupported VM user or path"; exit 1
+fi
+ADDON_DIR="${REPO_ROOT}/${ADDON}"
+
 # Auto-detect VM_IP from UTM if not set
 if [[ -z "${VM_IP:-}" ]]; then
     if command -v osascript &>/dev/null; then
@@ -60,6 +70,10 @@ if [[ -z "${VM_IP:-}" ]]; then
             echo "Detected VM_IP from UTM: ${VM_IP}"
         fi
     fi
+fi
+
+if [[ ! "$VM_IP" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]; then
+    echo "Unsupported VM address"; exit 1
 fi
 
 if [[ -z "${VM_IP:-}" ]]; then
@@ -72,9 +86,9 @@ fi
 echo "============================================"
 echo " Deploy to HA VM"
 echo "============================================"
-echo "  Addon:     duplicati"
+echo "  Addon:     ${ADDON}"
 echo "  VM:        ${VM_USER}@${VM_IP}"
-echo "  Remote:    ${VM_ADDONS_PATH}/duplicati/"
+echo "  Remote:    ${VM_ADDONS_PATH}/${ADDON}/"
 echo "============================================"
 echo ""
 
@@ -93,19 +107,19 @@ echo ""
 
 # Create remote addon directory
 echo "Creating remote directory..."
-ssh "${VM_USER}@${VM_IP}" "mkdir -p ${VM_ADDONS_PATH}/duplicati"
+ssh "${VM_USER}@${VM_IP}" "mkdir -p '${VM_ADDONS_PATH}/${ADDON}'"
 
 # Sync entire addon directory
-echo "Syncing duplicati addon..."
+echo "Syncing ${ADDON} app..."
 rsync -avz --progress --delete \
     --exclude '.DS_Store' \
     "${ADDON_DIR}/" \
-    "${VM_USER}@${VM_IP}:${VM_ADDONS_PATH}/duplicati/"
+    "${VM_USER}@${VM_IP}:${VM_ADDONS_PATH}/${ADDON}/"
 
 # Remove image field so HA builds locally from Dockerfile
 echo ""
 echo "Removing image field for local build..."
-ssh "${VM_USER}@${VM_IP}" "sed -i '/^image:/d' ${VM_ADDONS_PATH}/duplicati/config.yaml"
+ssh "${VM_USER}@${VM_IP}" "sed -i '/^image:/d' '${VM_ADDONS_PATH}/${ADDON}/config.yaml'"
 
 echo ""
 echo "============================================"
@@ -116,11 +130,11 @@ echo "Next steps on the VM:"
 echo "  1. Open HA at http://${VM_IP}:8123"
 echo "  2. Go to Settings > Add-ons > Add-on Store"
 echo "  3. Click the three dots menu > Check for updates"
-echo "  4. The 'duplicati' addon should appear under 'Local add-ons'"
+echo "  4. The '${ADDON}' app should appear under 'Local add-ons'"
 echo "  5. Install or rebuild the addon"
 echo ""
 echo "To rebuild after changes:"
-echo "  ha addons rebuild local_duplicati"
+echo "  ha addons rebuild local_${ADDON}"
 echo ""
 echo "To watch logs:"
-echo "  ssh ${VM_USER}@${VM_IP} 'ha addons logs local_duplicati --follow'"
+echo "  ssh ${VM_USER}@${VM_IP} 'ha addons logs local_${ADDON} --follow'"

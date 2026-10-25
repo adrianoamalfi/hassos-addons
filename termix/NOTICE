@@ -1,0 +1,33 @@
+Termix for Home Assistant
+
+This is an independently maintained integration, not an official Home Assistant
+distribution of Termix. No endorsement by Termix or Home Assistant is implied.
+
+Termix 26.10.1
+Copyright 2026 Luke Gustafson
+Source: https://github.com/Termix-SSH/Termix/tree/v26.10.1
+License: Apache License 2.0; see LICENSE.
+
+The Termix icon is reproduced from public/icon.svg in the same upstream release.
+It is rendered to PNG without changing the symbol or its colors. Termix's name
+and logo identify the included software; no trademark rights are claimed.
+
+Modifications made by this integration:
+- Supervisor ingress URL discovery and removal of Supervisor credentials before startup.
+- Persistent data relocation to /data/termix.
+- Same-origin iframe policy and connection-based ingress IP restrictions.
+- Adaptation of the frontend desktop-auth iframe detection.
+- Renaming of adapted frontend modules to avoid stale browser caches.
+- Restoration of omitted dependency and plugin SDK licensing notices.
+- Exclusion of the optional OPKSSH binary pending dependency licensing clarification.
+
+Upstream entrypoint, nginx templates and adapted JavaScript modules are modified
+at startup. Original templates are retained in /usr/local/share/termix.
+The upstream source is available at the versioned URL above; integration source:
+https://github.com/adrianoamalfi/hassos-addons/tree/main/termix
+
+Third-party components retain their own licenses and notices. The Apache-2.0
+image label describes this integration and Termix, not every component of the image.
+Supplemental notices, integrity-verified source inventories and source access
+instructions are included under /usr/share/licenses/termix-ha/third-party/ and
+in the repository's termix/licenses directory.
