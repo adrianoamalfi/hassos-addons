@@ -1,6 +1,6 @@
 build_from:
-  amd64: "ghcr.io/termix-ssh/termix:26.10.1"
-  aarch64: "ghcr.io/termix-ssh/termix:26.10.1"
+  amd64: "ghcr.io/termix-ssh/termix:26.10.6"
+  aarch64: "ghcr.io/termix-ssh/termix:26.10.6"
 args:
-  TERMIX_VERSION: "26.10.1"
-  TERMIX_DIGEST: "sha256:3b893227a5a4bb45104b7ba07a7b4520b1b5c571a27eb08a32a7ea7a203712a5"
+  TERMIX_VERSION: "26.10.6"
+  TERMIX_DIGEST: "sha256:e8ed36cd369f34b64b5a74b4022c3193bad422ced47c7cbff167036ff051a770"
