@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Update Termix to v26.11.2.
+
 ## 0.1.2
 
 - Update Termix to v26.11.1.
