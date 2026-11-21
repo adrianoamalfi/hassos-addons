@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.1.7
+
+- Update Duplicati to v2.4.1.103 (2026-11-20).
+
 ## 1.1.6
 
 - Update Duplicati to v2.4.1.102 (2026-11-14).
