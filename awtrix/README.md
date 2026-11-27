@@ -48,3 +48,20 @@ for configuration options and data storage details.
 Report problems through the [repository issue tracker](https://github.com/adrianoamalfi/hassos-addons/issues/new/choose).
 See the repository [contributor guide](../CONTRIBUTING.md) for development and
 release conventions.
+
+## Project relationship and licensing
+
+AWTRIX Manager is an independent Home Assistant add-on that communicates with
+AWTRIX NG devices through their API. It is not affiliated with or endorsed by
+the AWTRIX NG project. The name AWTRIX NG is used only to identify the devices
+this add-on supports.
+
+The add-on's original code is distributed under the repository's
+[Apache License 2.0](../LICENSE). AWTRIX NG firmware is a separate project with
+its own [PolyForm Noncommercial License 1.0.0](https://github.com/Blueforcer/awtrix-ng/blob/main/LICENSE.md).
+That firmware is not included in this add-on; users are responsible for
+following the firmware's terms when obtaining or using it. This add-on does not
+grant rights to AWTRIX NG firmware, its assets, or other third-party works.
+
+The current dependency inventory and licensing status are documented in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
