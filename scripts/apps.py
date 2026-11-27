@@ -149,6 +149,8 @@ def smoke(args):
             command += ["--platform", PLATFORMS[args.arch]]
         if args.addon == "termix":
             command += ["-e", "TERMIX_LOCAL_TEST=1"]
+        if args.addon == "awtrix":
+            command += ["-e", "SUPERVISOR_TOKEN=fixture-secret"]
         if args.addon == "duplicati":
             # Current Bashio obtains options from the Supervisor, not options.json.
             # Exercise that API contract rather than modifying the production runtime.
@@ -178,6 +180,8 @@ def smoke(args):
             def healthy():
                 if args.addon == "termix":
                     return status("/health") == 200
+                if args.addon == "awtrix":
+                    return status("/") == 200 and status("/api/health") == 200
                 return status("/") == 200 and (args.addon != "duplicati" or
                     status("/api/v1/serverstate") in {200, 302, 307, 401, 403})
 

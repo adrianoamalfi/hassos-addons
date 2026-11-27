@@ -1,4 +1,4 @@
-# Adriano's Home Assistant Add-on Repository
+# Adriano’s Home Assistant Add-on Repository
 
 [![Builder](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml/badge.svg?branch=main)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/builder.yaml)
 [![Lint](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml/badge.svg)](https://github.com/adrianoamalfi/hassos-addons/actions/workflows/lint.yaml)
@@ -19,6 +19,20 @@ https://github.com/adrianoamalfi/hassos-addons
 ```
 
 ## Add-ons
+
+### [AWTRIX Manager](./awtrix)
+
+Manage AWTRIX NG LED matrix displays from Home Assistant. Monitor multiple
+displays, manage apps already installed on them, edit and deploy Berry scripts,
+adjust settings, manage files, and export or restore backups. Supports amd64 and
+aarch64.
+
+![AWTRIX Manager dashboard with generic simulator devices](./awtrix/screenshots/dashboard.svg)
+
+See [AWTRIX documentation](./awtrix/DOCS.md) for installation, configuration,
+and supported features. The add-on is experimental while Home Assistant ingress
+and device acceptance checks are being completed.
+
 
 ### [Termix](./termix)
 
@@ -59,7 +73,7 @@ python3 -m venv .venv
 export APP_PYTHON="$PWD/.venv/bin/python"
 ./scripts/local-build.sh --addon termix
 ./scripts/local-test.sh --addon termix --port 8081
-./scripts/deploy-vm.sh --addon termix --ip 192.168.64.2
+./scripts/deploy-vm.sh --addon termix --ip haos.example
 ```
 
 Local test containers expose their UI on localhost only. Termix local test mode

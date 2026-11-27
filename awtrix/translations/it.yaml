@@ -1,0 +1,4 @@
+configuration:
+  devices:
+    name: Dispositivi
+    description: Dispositivi AWTRIX NG sulla tua rete.

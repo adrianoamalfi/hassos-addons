@@ -1,0 +1,11 @@
+#!/usr/bin/env bashio
+
+mkdir -p /data/awtrix/backups
+
+bashio::log.info "Starting AWTRIX Manager backend on port 8200..."
+exec /opt/awtrix/bin/uvicorn backend.main:app \
+    --host 127.0.0.1 \
+    --port 8200 \
+    --root-path /api \
+    --app-dir /opt/awtrix \
+    --log-level info

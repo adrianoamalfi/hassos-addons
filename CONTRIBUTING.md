@@ -15,6 +15,10 @@ isolated smoke tests run `python scripts/apps.py test --addon <directory>`.
 Add application-specific behavior checks to tests when basic HTTP startup cannot
 prove the app works. Apps with another HTTP port need an adapter in apps.py.
 
+AWTRIX also has an Ingress and device API integration check. Run it after building
+the image with `python tests/test-awtrix-ingress.py`; it uses disposable Docker
+fixtures and never targets a configured physical display.
+
 PRs build and lint selected apps on native amd64/arm64 runners without registry credentials. Shared changes test
 all apps. Main publishes only apps with a changed version, including first releases;
 all selected builds and lint must pass before publication. Releases follow successful
@@ -37,7 +41,7 @@ add a driver to scripts/upstream.py and the check-updates matrix. Bot PRs explic
 dispatch Builder on their branch because GITHUB_TOKEN events may not trigger CI.
 Those runs have read-only repository permissions and cannot publish images/releases.
 
-For HAOS acceptance verify installation, iframe login, prefixed assets/routes,
-WebSocket interactions, restart, upgrade and backup/restore. Mark a new app
+For HAOS acceptance verify installation, ingress authentication, prefixed
+assets/routes, restart, upgrade and backup/restore. Mark a new app
 experimental until these checks pass. Termix must preserve its encrypted database
 and .env keys together; it must not receive the Supervisor token in its backend.

@@ -11,8 +11,6 @@
 # Docker
 *.tar
 
-# Claude Code
-.claude/
 
 # Local test data
 /tmp/
@@ -20,3 +18,35 @@
 .venv/
 __pycache__/
 *.pyc
+
+# Frontend dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Local Home Assistant development environment
+/.devcontainer/
+/awtrix/options.json
+
+# Internal development plans and release notes
+/awtrix/PLAN.md
+/awtrix/ADD-APP-RELEASE-SCOPE.md
+/docs/PLAN-awtrix-api.md
+
+# Local environment files and credentials
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.yaml
+*.pem
+*.key
+*.p12
+
+# Local logs and test output
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
