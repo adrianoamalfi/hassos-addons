@@ -20,9 +20,10 @@ the image with `python tests/test-awtrix-ingress.py`; it uses disposable Docker
 fixtures and never targets a configured physical display.
 
 PRs build and lint selected apps on native amd64/arm64 runners without registry credentials. Shared changes test
-all apps. Main publishes only apps with a changed version, including first releases;
-all selected builds and lint must pass before publication. Releases follow successful
-publication. Manual Builder runs validate apps without publishing anything.
+all apps. Main publishes new versions, including first releases, after all selected
+builds and lint pass. A version without a published tag is retried on later successful
+main runs. Releases follow successful publication. Manual Builder runs validate apps
+without publishing anything.
 
 Bump each app independently and include a matching changelog section:
 

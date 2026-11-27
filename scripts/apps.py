@@ -81,6 +81,20 @@ def is_new_release(previous, current):
     return tuple(map(int, current.split("."))) > tuple(map(int, previous.split(".")))
 
 
+def release_tag_exists(name, version):
+    result = subprocess.run(["git", "show-ref", "--verify", "--quiet",
+                             f"refs/tags/{name}-v{version}"], cwd=ROOT)
+    return result.returncode == 0
+
+
+def should_publish_release(previous, current, tag_exists):
+    if tag_exists:
+        return False
+    if previous is None or is_new_release(previous, current):
+        return True
+    return previous == current
+
+
 def selection(args):
     apps = discover()
     before, selected = args.base, list(apps)
@@ -104,8 +118,9 @@ def selection(args):
             if changed and previous_version(name, before) == apps[name]["version"]:
                 raise ValueError(f"Runtime changes in {name} require an app version bump")
     matrix = [{"addon": name, "arch": arch} for name in selected for arch in apps[name]["arch"]]
-    releases = [name for name in selected if before is not None and
-                is_new_release(previous_version(name, before), apps[name]["version"])]
+    releases = [name for name in selected if before is not None and should_publish_release(
+        previous_version(name, before), apps[name]["version"],
+        release_tag_exists(name, apps[name]["version"]))]
     result = {"matrix": {"include": matrix}, "addons": selected, "releases": releases}
     if args.github_output:
         with open(args.github_output, "a") as output:
