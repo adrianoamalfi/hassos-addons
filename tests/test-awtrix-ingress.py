@@ -163,6 +163,10 @@ def run():
             assert state["restoreCalls"] == 1, "Invalid archive reached the device"
             print("AWTRIX ingress, device API, native backup export/restore, and unsafe ZIP rejection passed")
         finally:
+            # The container writes backup files as root into the host temp dir.
+            # Restore host cleanup permissions before TemporaryDirectory removes it.
+            subprocess.run(["docker", "exec", app, "chmod", "-R", "a+rwX", "/data"],
+                           check=False, capture_output=True)
             for name in (app, device, ingress_fixture):
                 subprocess.run(["docker", "rm", "-f", name], check=False, capture_output=True)
             subprocess.run(["docker", "network", "rm", network], check=False, capture_output=True)

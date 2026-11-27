@@ -75,6 +75,12 @@ def previous_version(name, ref):
     return yaml.safe_load(result.stdout).get("version") if result.returncode == 0 else None
 
 
+def is_new_release(previous, current):
+    if previous is None:
+        return True
+    return tuple(map(int, current.split("."))) > tuple(map(int, previous.split(".")))
+
+
 def selection(args):
     apps = discover()
     before, selected = args.base, list(apps)
@@ -98,8 +104,8 @@ def selection(args):
             if changed and previous_version(name, before) == apps[name]["version"]:
                 raise ValueError(f"Runtime changes in {name} require an app version bump")
     matrix = [{"addon": name, "arch": arch} for name in selected for arch in apps[name]["arch"]]
-    releases = [name for name in selected if before is not None
-                and previous_version(name, before) != apps[name]["version"]]
+    releases = [name for name in selected if before is not None and
+                is_new_release(previous_version(name, before), apps[name]["version"])]
     result = {"matrix": {"include": matrix}, "addons": selected, "releases": releases}
     if args.github_output:
         with open(args.github_output, "a") as output:
