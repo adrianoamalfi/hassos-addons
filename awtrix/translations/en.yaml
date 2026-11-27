@@ -1,0 +1,4 @@
+configuration:
+  devices:
+    name: Devices
+    description: AWTRIX NG devices on your network.

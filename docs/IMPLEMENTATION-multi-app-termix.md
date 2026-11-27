@@ -1,13 +1,16 @@
 # Implementazione del repository multi app e Termix
 
-13 ottobre 2026. Branch `dev/multi-app-termix`.
+Resoconto storico aggiornato il 27 novembre 2026. Le prove eseguite su ambienti
+locali sono omesse; per istruzioni operative correnti vedere [CONTRIBUTING.md](../CONTRIBUTING.md)
+e la documentazione dei singoli add-on.
 
 Modifiche nella [PR in bozza numero 108](https://github.com/adrianoamalfi/hassos-addons/pull/108).
 La PR mostra lo stato aggiornato dei controlli GitHub.
 
-Il repository ora scopre le app dalle rispettive directory e include Termix 0.1.0,
-in fase sperimentale, basato su Termix 26.10.1. Le modifiche sono pronte per revisione;
-l'installazione reale su HAOS resta una verifica necessaria prima del rilascio stabile.
+Il repository scopre le app dalle rispettive directory e include Termix, basato
+sull'applicazione upstream. Ogni add-on mantiene versione, architetture, test e
+documentazione propri. Consultare i metadati e le guide dell'add-on per lo stato
+di rilascio corrente.
 
 ## Modifiche realizzate
 
@@ -75,7 +78,7 @@ supporto iniziale.
 | Build e test GitHub su runner nativi | tutti e quattro i job riusciti |
 
 I test usano account, chiavi e host sintetici. Container, reti e volumi temporanei
-sono stati eliminati. Le immagini locali rimangono disponibili per ulteriori prove.
+vengono eliminati al termine delle prove.
 
 ## Pubblicazione verificata
 
@@ -89,15 +92,10 @@ Manifest e tutti i layer delle immagini amd64 e aarch64 sono accessibili senza
 autenticazione (HTTP 200). Lo store HAOS rileva `3aef905c_termix`, disponibile a
 versione 0.1.1. L'installazione dal repository e l'avvio dell'immagine pubblicata
 sono riusciti: backend e frontend HTTP 200, prefisso ingress e policy iframe validi.
-L'app del repository è stata lasciata installata ma ferma dopo la verifica;
-`local_termix` resta avviato alla versione 0.1.1. Le due installazioni hanno dati
-separati; nessuna migrazione dei dati è stata eseguita.
+L'installazione pubblicata è stata verificata senza eseguire migrazioni di dati.
 
-La VM locale HAOS 17.1 è stata successivamente avviata tramite UTM. Termix 0.1.0
-è stato installato come `local_termix` attraverso il Supervisor e il guest agent,
-con build locale e apertura ingress riuscite. L'utente ha confermato il funzionamento.
-La VM resta accesa per le prove. Le verifiche successive di backup/restore
-Supervisor e trasferimento SFTP sono documentate nella sezione seguente.
+Le verifiche di accettazione Home Assistant dipendono dalla versione del Supervisor
+e vanno ripetute nell'ambiente di destinazione prima di ogni rilascio.
 
 ## Qualità e documentazione — 0.1.1
 
@@ -114,15 +112,12 @@ Il binario opzionale OPKSSH è escluso per una dipendenza senza licenza nel tag
 distribuito. Un controllo di build blocca cambiamenti delle versioni inventariate.
 Vedere `termix/LICENSE_REVIEW.md` per il perimetro e i materiali di redistribuzione.
 
-Il backup parziale Supervisor e il ripristino di `local_termix` sono riusciti su
-HAOS 17.1: un marcatore modificato dopo il backup è tornato al contenuto originale
-e la salute dell'app è tornata HTTP 200. I backup restano disponibili nella VM.
-SSH exec e upload/download SFTP sono riusciti da Termix contro un server OpenSSH
-reale e temporaneo sulla rete interna HAOS, con fingerprint verificato e confronto
-dei contenuti. Server e marcatore sono stati rimossi.
+Backup e ripristino vanno verificati su un'installazione di prova per ogni modifica
+al formato dei dati persistenti. I test SSH e SFTP devono usare fixture temporanee
+e verificare fingerprint e integrità dei contenuti trasferiti.
 
-L'aggiornamento Supervisor da 0.1.0 a 0.1.1 è riuscito con backup preventivo:
-`local_termix` è avviato e la salute risponde HTTP 200. Le immagini finali copiano
+L'aggiornamento Supervisor da 0.1.0 a 0.1.1 è riuscito con backup preventivo;
+l'installazione aggiornata risponde HTTP 200. Le immagini finali copiano
 il filesystem sanificato in un'immagine nuova, così il binario OPKSSH escluso
 non rimane nei layer OCI distribuiti. Test di avvio su entrambe le architetture
 e integrazione ingress sono riusciti anche su queste immagini finali.

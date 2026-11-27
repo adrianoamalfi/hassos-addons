@@ -43,6 +43,16 @@ class AppToolTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             apps.changelog_section(text, "1.0")
 
+    def test_release_selection_only_publishes_forward_version_changes(self):
+        self.assertTrue(apps.is_new_release(None, "0.1.0"))
+        self.assertTrue(apps.is_new_release("0.1.1", "0.1.2"))
+        self.assertFalse(apps.is_new_release("0.1.2", "0.1.1"))
+        self.assertFalse(apps.is_new_release("0.1.2", "0.1.2"))
+        self.assertTrue(apps.should_publish_release(None, "0.1.0", False))
+        self.assertTrue(apps.should_publish_release("0.1.0", "0.1.0", False))
+        self.assertFalse(apps.should_publish_release("0.1.0", "0.1.0", True))
+        self.assertFalse(apps.should_publish_release("0.1.2", "0.1.1", False))
+
     def test_push_range_includes_first_app_release(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -67,6 +67,11 @@ jobs:
         run: |
           docker tag app-test:ci local/termix:latest
           python3 tests/test-termix-ingress.py
+      - name: Test AWTRIX ingress and backup integration
+        if: matrix.addon == 'awtrix' && matrix.arch == 'amd64'
+        run: |
+          docker tag app-test:ci local/awtrix:latest
+          python3 tests/test-awtrix-ingress.py
       - name: Save tested image
         if: github.event_name == 'push' && contains(fromJSON(needs.discover.outputs.releases), matrix.addon)
         run: docker save app-test:ci -o /tmp/app-image.tar

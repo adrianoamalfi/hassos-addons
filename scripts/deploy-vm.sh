@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Deploy one app to a UTM/VM running Home Assistant OS
-# Usage: ./scripts/deploy-vm.sh [--ip 192.168.x.x]
+# Deploy one app to a Home Assistant OS test instance
+# Usage: ./scripts/deploy-vm.sh [--ip <host-or-address>]
 #
 # This script syncs the addon source code to the HA VM's local addons folder
 # so that it can be installed/rebuilt directly from the HA supervisor.
@@ -8,11 +8,10 @@
 # Prerequisites:
 #   - SSH access to the VM as root (ssh root@VM_IP)
 #   - The VM must be running Home Assistant OS
-#   - VM_IP is auto-detected from UTM (VM named "HAOS"), or set manually
+#   - Set VM_IP or pass --ip with the reachable host name or address
 #
 # Example:
-#   ./scripts/deploy-vm.sh                        # Auto-detect IP from UTM
-#   ./scripts/deploy-vm.sh --ip 192.168.64.2      # Manual IP
+#   ./scripts/deploy-vm.sh --ip haos.example      # Manual host
 
 set -euo pipefail
 
@@ -41,12 +40,12 @@ while [[ $# -gt 0 ]]; do
             echo "  --path    Remote addons path (default: /root/addons)"
             echo ""
             echo "Environment variables:"
-            echo "  VM_IP     VM IP address (auto-detected from UTM VM 'HAOS' if not set)"
+            echo "  VM_IP     Host name or address of the Home Assistant OS instance"
             echo ""
             echo "Examples:"
-            echo "  export VM_IP=192.168.64.2"
+            echo "  export VM_IP=haos.example"
             echo "  $0                                    # Deploy duplicati"
-            echo "  $0 --ip 192.168.64.5                  # Manual IP"
+            echo "  $0 --ip haos.example                 # Manual host"
             exit 0 ;;
         *)
             echo "Unknown option: $1"; exit 1 ;;
@@ -61,26 +60,13 @@ if [[ ! "$VM_USER" =~ ^[a-z_][a-z0-9_-]*$ ]] || [[ ! "$VM_ADDONS_PATH" =~ ^/[a-z
 fi
 ADDON_DIR="${REPO_ROOT}/${ADDON}"
 
-# Auto-detect VM_IP from UTM if not set
 if [[ -z "${VM_IP:-}" ]]; then
-    if command -v osascript &>/dev/null; then
-        echo "VM_IP not set, querying UTM for HAOS VM IP..."
-        VM_IP=$(osascript -e 'tell application "UTM" to get item 1 of (query ip of virtual machine named "HAOS")' 2>/dev/null || true)
-        if [[ -n "$VM_IP" ]]; then
-            echo "Detected VM_IP from UTM: ${VM_IP}"
-        fi
-    fi
-fi
-
-if [[ ! "$VM_IP" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]; then
-    echo "Unsupported VM address"; exit 1
-fi
-
-if [[ -z "${VM_IP:-}" ]]; then
-    echo "Error: VM_IP not set and could not auto-detect from UTM."
-    echo "  Use --ip flag, export VM_IP=<ip>, or ensure UTM VM 'HAOS' is running."
-    echo "  Example: export VM_IP=192.168.64.2"
+    echo "Error: provide the Home Assistant OS host with --ip or VM_IP."
+    echo "  Example: export VM_IP=haos.example"
     exit 1
+fi
+if [[ ! "$VM_IP" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]; then
+    echo "Unsupported VM host"; exit 1
 fi
 
 echo "============================================"

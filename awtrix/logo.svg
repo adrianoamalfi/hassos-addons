@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="250" height="100" viewBox="0 0 250 100">
+  <g transform="translate(13 15)">
+    <rect width="70" height="70" rx="13" fill="#111827" stroke="#273449" stroke-width="3"/>
+    <rect x="8" y="8" width="54" height="54" rx="7" fill="#080D16"/>
+    <g fill="#283244">
+      <rect x="12" y="12" width="5" height="5" rx="1"/><rect x="20" y="12" width="5" height="5" rx="1"/><rect x="28" y="12" width="5" height="5" rx="1"/><rect x="36" y="12" width="5" height="5" rx="1"/><rect x="44" y="12" width="5" height="5" rx="1"/><rect x="52" y="12" width="5" height="5" rx="1"/>
+      <rect x="12" y="20" width="5" height="5" rx="1"/><rect x="20" y="20" width="5" height="5" rx="1"/><rect x="28" y="20" width="5" height="5" rx="1"/><rect x="36" y="20" width="5" height="5" rx="1"/><rect x="44" y="20" width="5" height="5" rx="1"/><rect x="52" y="20" width="5" height="5" rx="1"/>
+      <rect x="12" y="28" width="5" height="5" rx="1"/><rect x="20" y="28" width="5" height="5" rx="1"/><rect x="28" y="28" width="5" height="5" rx="1"/><rect x="36" y="28" width="5" height="5" rx="1"/><rect x="44" y="28" width="5" height="5" rx="1"/><rect x="52" y="28" width="5" height="5" rx="1"/>
+      <rect x="12" y="36" width="5" height="5" rx="1"/><rect x="20" y="36" width="5" height="5" rx="1"/><rect x="28" y="36" width="5" height="5" rx="1"/><rect x="36" y="36" width="5" height="5" rx="1"/><rect x="44" y="36" width="5" height="5" rx="1"/><rect x="52" y="36" width="5" height="5" rx="1"/>
+      <rect x="12" y="44" width="5" height="5" rx="1"/><rect x="20" y="44" width="5" height="5" rx="1"/><rect x="28" y="44" width="5" height="5" rx="1"/><rect x="36" y="44" width="5" height="5" rx="1"/><rect x="44" y="44" width="5" height="5" rx="1"/><rect x="52" y="44" width="5" height="5" rx="1"/>
+      <rect x="12" y="52" width="5" height="5" rx="1"/><rect x="20" y="52" width="5" height="5" rx="1"/><rect x="28" y="52" width="5" height="5" rx="1"/><rect x="36" y="52" width="5" height="5" rx="1"/><rect x="44" y="52" width="5" height="5" rx="1"/><rect x="52" y="52" width="5" height="5" rx="1"/>
+    </g>
+    <g fill="#27E891">
+      <rect x="36" y="12" width="5" height="5" rx="1"/>
+      <rect x="28" y="20" width="5" height="5" rx="1"/><rect x="36" y="20" width="5" height="5" rx="1"/><rect x="44" y="20" width="5" height="5" rx="1"/>
+      <rect x="20" y="28" width="5" height="5" rx="1"/><rect x="28" y="28" width="5" height="5" rx="1"/><rect x="36" y="28" width="5" height="5" rx="1"/><rect x="44" y="28" width="5" height="5" rx="1"/><rect x="52" y="28" width="5" height="5" rx="1"/>
+      <rect x="20" y="36" width="5" height="5" rx="1"/><rect x="52" y="36" width="5" height="5" rx="1"/>
+      <rect x="12" y="44" width="5" height="5" rx="1"/><rect x="52" y="44" width="5" height="5" rx="1"/>
+    </g>
+    <g fill="#16D9E6"><rect x="12" y="12" width="5" height="5" rx="1"/><rect x="52" y="52" width="5" height="5" rx="1"/></g>
+  </g>
+  <text x="96" y="58" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="0.3" fill="#111827">AWTRIX</text>
+  <text x="165" y="58" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#556274">Manager</text>
+</svg>

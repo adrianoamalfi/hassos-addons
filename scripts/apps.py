@@ -75,6 +75,26 @@ def previous_version(name, ref):
     return yaml.safe_load(result.stdout).get("version") if result.returncode == 0 else None
 
 
+def is_new_release(previous, current):
+    if previous is None:
+        return True
+    return tuple(map(int, current.split("."))) > tuple(map(int, previous.split(".")))
+
+
+def release_tag_exists(name, version):
+    result = subprocess.run(["git", "show-ref", "--verify", "--quiet",
+                             f"refs/tags/{name}-v{version}"], cwd=ROOT)
+    return result.returncode == 0
+
+
+def should_publish_release(previous, current, tag_exists):
+    if tag_exists:
+        return False
+    if previous is None or is_new_release(previous, current):
+        return True
+    return previous == current
+
+
 def selection(args):
     apps = discover()
     before, selected = args.base, list(apps)
@@ -98,8 +118,9 @@ def selection(args):
             if changed and previous_version(name, before) == apps[name]["version"]:
                 raise ValueError(f"Runtime changes in {name} require an app version bump")
     matrix = [{"addon": name, "arch": arch} for name in selected for arch in apps[name]["arch"]]
-    releases = [name for name in selected if before is not None
-                and previous_version(name, before) != apps[name]["version"]]
+    releases = [name for name in selected if before is not None and should_publish_release(
+        previous_version(name, before), apps[name]["version"],
+        release_tag_exists(name, apps[name]["version"]))]
     result = {"matrix": {"include": matrix}, "addons": selected, "releases": releases}
     if args.github_output:
         with open(args.github_output, "a") as output:
@@ -149,6 +170,8 @@ def smoke(args):
             command += ["--platform", PLATFORMS[args.arch]]
         if args.addon == "termix":
             command += ["-e", "TERMIX_LOCAL_TEST=1"]
+        if args.addon == "awtrix":
+            command += ["-e", "SUPERVISOR_TOKEN=fixture-secret"]
         if args.addon == "duplicati":
             # Current Bashio obtains options from the Supervisor, not options.json.
             # Exercise that API contract rather than modifying the production runtime.
@@ -178,6 +201,8 @@ def smoke(args):
             def healthy():
                 if args.addon == "termix":
                     return status("/health") == 200
+                if args.addon == "awtrix":
+                    return status("/") == 200 and status("/api/health") == 200
                 return status("/") == 200 and (args.addon != "duplicati" or
                     status("/api/v1/serverstate") in {200, 302, 307, 401, 403})
 

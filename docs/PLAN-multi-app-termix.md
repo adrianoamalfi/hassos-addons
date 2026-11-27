@@ -1,6 +1,6 @@
 # Piano per più app Home Assistant e integrazione Termix
 
-Analisi del 13 ottobre 2026, sul commit `f84be67`. Obiettivo: conservare Duplicati, aggiungere Termix e rendere build, test, aggiornamenti e release indipendenti per ogni app. Questo documento definisce il lavoro; il porting non è ancora implementato.
+Analisi del 13 ottobre 2026, sul commit `f84be67`. Obiettivo: conservare Duplicati, aggiungere Termix e rendere build, test, aggiornamenti e release indipendenti per ogni app. Questo documento registra i requisiti e le decisioni architetturali iniziali; il porting descritto è stato successivamente implementato. Per istruzioni operative aggiornate, vedere [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Decisione proposta
 
@@ -24,7 +24,7 @@ Primo rilascio Termix: UI web, account Termix, host SSH, terminale e trasferimen
 | Approvazione CI | `.github/workflows/auto-approve.yaml` riconosce solo `update-duplicati-*`; PR #107 ha run `action_required` | Individuare la causa prima di estendere il meccanismo a Termix |
 | Script locali | Tutti i cinque script in `scripts/` assumono Duplicati, relativi argomenti e porte | Selettore `--addon`, parametri comuni e adattatori per app |
 | Dependabot | Configurazione Docker soltanto per `/duplicati` | Aggiungere `/termix`, distinguendo base image e versione applicativa |
-| Documentazione | README, CLAUDE.md, task editor e template riferiti al singolo add-on | Catalogo app, istruzioni per contribuire e convenzioni aggiornate |
+| Documentazione | README e istruzioni di sviluppo riferiti al singolo add-on | Catalogo app, istruzioni per contribuire e convenzioni aggiornate |
 
 Il pin di `home-assistant/builder@2026.03.2` deriva da una precedente correzione CI: conservarlo durante questa migrazione; eventuale aggiornamento va verificato separatamente. CLAUDE.md cita ancora linter 2.21.0 mentre il workflow usa 2.21.1.
 
@@ -73,7 +73,7 @@ Alternativa se immagine upstream e builder HA non risultano compatibili: build m
 
 ### Ingress e login
 
-I [requisiti HA ingress](https://developers.home-assistant.io/docs/add-ons/presentation/#ingress) comprendono WebSocket e accesso al listener soltanto dal proxy Supervisor `172.30.32.2`. Il percorso viene trasmesso nell'header `X-Ingress-Path`.
+I [requisiti HA ingress](https://developers.home-assistant.io/docs/add-ons/presentation/#ingress) comprendono WebSocket e accesso al listener soltanto dal proxy Supervisor. Il percorso viene trasmesso nell'header `X-Ingress-Path`.
 
 Termix [supporta `BASE_PATH`](https://docs.termix.site/configure/reverse-proxy), ma lo inserisce nel frontend all'avvio. Occorre risolvere come ottenere il prefisso HA prima dell'avvio oppure applicarlo per richiesta. Preferire una soluzione nativa verificata; in alternativa valutare un adattamento del proxy limitato ai metadati frontend. Non assumere che un prefisso fisso funzioni per sessioni diverse.
 

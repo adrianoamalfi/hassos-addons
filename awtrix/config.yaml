@@ -1,0 +1,25 @@
+name: AWTRIX Manager
+version: "0.1.0"
+slug: awtrix
+description: Manage AWTRIX NG LED matrix displays from Home Assistant.
+url: "https://github.com/adrianoamalfi/hassos-addons/tree/main/awtrix"
+arch:
+  - amd64
+  - aarch64
+stage: experimental
+boot: manual
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:led-strip-variant
+startup: services
+init: false
+options:
+  devices: []
+schema:
+  devices:
+    - host: str
+      name: "str?"
+      tls: "bool?"
+      username: "str?"
+      password: "password?"
+image: "ghcr.io/adrianoamalfi/{arch}-addon-awtrix"
